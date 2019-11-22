@@ -6,17 +6,24 @@
 #define SPACEINVADERS_STOPWATCH_H
 
 #include <memory>
+#include <chrono>
+
+typedef std::chrono::system_clock::time_point Time;
 
 class Stopwatch {
 private:
-    Stopwatch() = default;
+    Stopwatch();
+
+    Time last_recorded_time;
 
 public:
-    static std::weak_ptr<Stopwatch> getInstance();
+    virtual ~Stopwatch() = default;
 
-    void start();
+    static Stopwatch &instance();
 
-    void stop();
+    double getElapsedTime();
+
+    double restart();
 
 };
 

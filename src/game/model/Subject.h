@@ -5,11 +5,9 @@
 #ifndef SPACEINVADERS_SUBJECT_H
 #define SPACEINVADERS_SUBJECT_H
 
-#include "Observer.h"
+#include "../view/Observer.h"
 #include <vector>
 #include <memory>
-
-using namespace std;
 
 /**
  * Class used in "Observer pattern"
@@ -21,7 +19,7 @@ using namespace std;
  */
 class Subject {
 private:
-    vector<shared_ptr<Observer>> observers;
+    std::vector<Observer::Ptr> observers;
 
 public:
     /**
@@ -35,18 +33,23 @@ public:
     ~Subject() = default;
 
     /**
-     * add Observer object to list of observers.
+     * add Observer object to list of observers
      *
      * @param observer Observer object to be added
      */
-    void addObserver(const shared_ptr<Observer> &observer);
+    void addObserver(const Observer::Ptr &observer);
 
     /**
-     * remove Observer object from list of observers.
+     * remove Observer object from list of observers
      *
      * @param observer Observer object to be removed
      */
-    void removeObserver(const shared_ptr<Observer> &observer);
+    void removeObserver(const Observer::Ptr &observer);
+
+    /**
+     * notify all observers that something happened
+     */
+    virtual void notify();
 
 };
 

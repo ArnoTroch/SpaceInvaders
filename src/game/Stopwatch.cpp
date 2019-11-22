@@ -3,16 +3,26 @@
 //
 
 #include "Stopwatch.h"
-#include <ctime>
 
-std::weak_ptr<Stopwatch> Stopwatch::getInstance() {
-    return std::weak_ptr<Stopwatch>();
+Stopwatch::Stopwatch() {
+    last_recorded_time = std::chrono::system_clock::now();
 }
 
-void Stopwatch::start() {
-
+Stopwatch &Stopwatch::instance() {
+    static std::unique_ptr<Stopwatch> sw(new Stopwatch());
+    return *sw;
 }
 
-void Stopwatch::stop() {
-
+double Stopwatch::getElapsedTime() {
+    Time now = std::chrono::system_clock::now();
+    std::chrono::duration<double> diff = now - last_recorded_time;
+    return diff.count();
 }
+
+double Stopwatch::restart() {
+    Time now = std::chrono::system_clock::now();
+    std::chrono::duration<double> diff = now - last_recorded_time;
+    last_recorded_time = now;
+    return diff.count();
+}
+

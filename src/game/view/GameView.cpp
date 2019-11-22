@@ -5,7 +5,7 @@
 #include "GameView.h"
 
 GameView::GameView() :
-        window(sf::VideoMode(800, 600), "Space Invaders", sf::Style::Titlebar) {}
+        window(sf::VideoMode(1200, 900), "Space Invaders", sf::Style::Titlebar) {}
 
 void GameView::update() {
     sf::Event event{}; // 3
@@ -21,7 +21,7 @@ void GameView::draw(const sf::Drawable &drawable) {
 }
 
 void GameView::clear() {
-    window.clear(sf::Color::White);
+    window.clear(sf::Color::Black);
 }
 
 void GameView::display() {

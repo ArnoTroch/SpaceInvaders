@@ -5,8 +5,8 @@
 #ifndef SPACEINVADERS_OBSERVER_H
 #define SPACEINVADERS_OBSERVER_H
 
-#include "entity/Entity.h"
-#include "Event.h"
+#include <memory>
+#include "../../entity/Entity.h"
 
 /**
  * Abstract class used in "Observer pattern"
@@ -16,6 +16,8 @@
  */
 class Observer {
 public:
+    typedef std::shared_ptr<Observer> Ptr;
+
     /**
      * Default constructor
      */
@@ -32,7 +34,7 @@ public:
      * @param entity entity that is affected by the event
      * @param event event to handle
      */
-    virtual void onNotify(const Entity &entity, Event event) = 0;
+    virtual void onNotify() = 0;
 };
 
 

@@ -5,7 +5,9 @@
 #ifndef SPACEINVADERS_GAME_H
 #define SPACEINVADERS_GAME_H
 
-#include "GameView.h"
+#include "view/GameView.h"
+#include "Stopwatch.h"
+#include <iostream>
 
 #define RESOURCES_DIR std::string("../resources/") // relative path to where resources are stored.
 
@@ -19,6 +21,7 @@ private:
     GameView view;
     sf::Texture texture;    // test for drawing
     sf::Sprite sprite;      // test for drawing
+    double dt;
 public:
     Game();
 
@@ -42,6 +45,8 @@ public:
      * @return
      */
     bool isRunning();
+
+    void updateDt();
 
 };
 
