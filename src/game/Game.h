@@ -6,6 +6,7 @@
 #define SPACEINVADERS_GAME_H
 
 #include "view/GameView.h"
+#include "model/GameModel.h"
 #include "Stopwatch.h"
 #include <iostream>
 
@@ -18,7 +19,9 @@
  */
 class Game {
 private:
-    GameView view;
+    GameView::Ptr view;
+    GameModel::Ptr model;
+
     sf::Texture texture;    // test for drawing
     sf::Sprite sprite;      // test for drawing
     double dt;
@@ -26,26 +29,19 @@ public:
     Game();
 
     /**
-     * run the whole game
+     * run the game
      */
     void run();
 
     /**
-     * update different parts of the game
+     * update the game model, which will notify the view to render
      */
     void update();
 
     /**
-     * draw different parts of the game
+     * update the delta time (time used for implementing frame rate
+     * independent movement)
      */
-    void draw();
-
-    /**
-     * Tell if game is still running or not
-     * @return
-     */
-    bool isRunning();
-
     void updateDt();
 
 };

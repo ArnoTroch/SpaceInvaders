@@ -18,7 +18,7 @@
  * happens.
  */
 class Subject {
-private:
+protected:
     std::vector<Observer::Ptr> observers;
 
 public:
@@ -31,6 +31,8 @@ public:
      * default destructor
      */
     ~Subject() = default;
+
+    const std::vector<Observer::Ptr> &getObservers() const;
 
     /**
      * add Observer object to list of observers

@@ -4,27 +4,33 @@
 
 #include "GameView.h"
 
-GameView::GameView() :
-        window(sf::VideoMode(1200, 900), "Space Invaders", sf::Style::Titlebar) {}
+#include <iostream>
 
-void GameView::update() {
-    sf::Event event{}; // 3
-    if (window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
-            window.close();
-        }
+GameView::GameView(GameModel::Ptr model) :
+        model(std::move(model)) {
+    window.create(sf::VideoMode(1200, 900), "Space Invaders", sf::Style::Default);
+}
+
+void GameView::render() {
+    window.clear(sf::Color::Black); // clear the window
+    for (const entity::Entity::Ptr &entity: model->getEntities()) {
+        // draw all entities on the window
+        sf::Texture texture;
+        sf::Sprite sprite;
+        texture.loadFromFile(entity->getResourcePath());
+        sprite.setTexture(texture);
+        sprite.setPosition(static_cast<float>(entity->getPosition().getX()),
+                           static_cast<float>(entity->getPosition().getY()));
+        window.draw(sprite);
     }
+    window.display(); // display the window
 }
 
-void GameView::draw(const sf::Drawable &drawable) {
-    window.draw(drawable);
+
+void GameView::onNotify() {
+    render();
 }
 
-void GameView::clear() {
-    window.clear(sf::Color::Black);
+sf::RenderWindow &GameView::getWindow() {
+    return window;
 }
-
-void GameView::display() {
-    window.display();
-}
-

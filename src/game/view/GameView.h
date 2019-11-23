@@ -5,22 +5,28 @@
 #ifndef SPACEINVADERS_GAMEVIEW_H
 #define SPACEINVADERS_GAMEVIEW_H
 
+#include "Observer.h"
+#include "../model/GameModel.h"
 #include <SFML/Graphics.hpp>
 
-class GameView {
+class GameView : public Observer {
 private:
+    GameModel::Ptr model;
+
     sf::RenderWindow window;
 
 public:
-    GameView();
+    typedef std::shared_ptr<GameView> Ptr;
 
-    void update();
+    explicit GameView(GameModel::Ptr model);
 
-    void draw(const sf::Drawable &drawable);
+    ~GameView() override = default;
 
-    void clear();
+    sf::RenderWindow &getWindow();
 
-    void display();
+    void render();
+
+    void onNotify() override;
 
 };
 

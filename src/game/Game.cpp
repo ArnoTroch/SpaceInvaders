@@ -4,39 +4,34 @@
 
 #include "Game.h"
 
-Game::Game() : view() {
-    texture.loadFromFile(RESOURCES_DIR + "invaders.png");
-    sprite.setTexture(texture);
+Game::Game() {
+    model = std::make_shared<GameModel>();
+    view = std::make_shared<GameView>(model);
+    model->addObserver(view);
     dt = 0.0;
-    Stopwatch::instance();
 }
 
 void Game::run() {
-    while (isRunning()) {
-        update();
-        draw();
-        updateDt();
+    Stopwatch::instance();
+    // this code is copied from the SFML tutorials
+    // https://www.sfml-dev.org/tutorials/2.4/graphics-draw.php
+
+    // run the program as long as the window is open
+    while (view->getWindow().isOpen()) {
+        // check all the window's events that were triggered since the last iteration of the loop
+        sf::Event event{};
+        while (view->getWindow().pollEvent(event)) {
+            // "close requested" event: we close the window
+            if (event.type == sf::Event::Closed)
+                view->getWindow().close();
+        }
+        update(); // update game model
+        updateDt(); // update delta time
     }
 }
 
 void Game::update() {
-    view.update();
-
-    const sf::Vector2f &spritePos = sprite.getPosition();
-    const double pixelsToMovePerSec = 100;
-    const double frameMovement = pixelsToMovePerSec * dt;
-    sprite.setPosition(static_cast<float>(spritePos.x + frameMovement), static_cast<float>(spritePos.y));
-}
-
-void Game::draw() {
-    view.clear();
-    view.draw(sprite);
-    view.display();
-}
-
-bool Game::isRunning() {
-    // TODO add code
-    return true;
+    model->update(dt);
 }
 
 void Game::updateDt() {

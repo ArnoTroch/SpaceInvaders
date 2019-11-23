@@ -4,6 +4,10 @@
 
 #include "Subject.h"
 
+const std::vector<Observer::Ptr> &Subject::getObservers() const {
+    return observers;
+}
+
 void Subject::addObserver(const Observer::Ptr &observer) {
     observers.push_back(observer);
 }

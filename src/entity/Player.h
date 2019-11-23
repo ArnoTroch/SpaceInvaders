@@ -5,15 +5,37 @@
 #ifndef SPACEINVADERS_PLAYER_H
 #define SPACEINVADERS_PLAYER_H
 
-#include "Entity.h"
+#include "Creature.h"
 
 namespace entity {
-    class Player : public Entity {
+
+    /**
+     * Class that represents the player in the game.
+     *
+     * This class inherits from the Creature class.
+     */
+    class Player : public Creature {
     private:
+
     public:
+        typedef std::shared_ptr<Player> Ptr;
+
+        /**
+         * create a Player with given position
+         * @param position player position
+         */
         explicit Player(const Position &position);
 
+        /**
+         * default destructor
+         */
+        ~Player() override = default;
 
+        /**
+         * get relative path to resources for player
+         * @return relative path to player resources
+         */
+        std::string getResourcePath() override;
     };
 }
 
