@@ -7,6 +7,7 @@
 
 #include "view/GameView.h"
 #include "model/GameModel.h"
+#include "controller/GameController.h"
 #include "Stopwatch.h"
 #include <iostream>
 
@@ -20,11 +21,13 @@
 class Game {
 private:
     GameView::Ptr view;
+
     GameModel::Ptr model;
 
-    sf::Texture texture;    // test for drawing
-    sf::Sprite sprite;      // test for drawing
+    GameController::Ptr controller;
+
     double dt;
+
 public:
     Game();
 
@@ -39,8 +42,8 @@ public:
     void update();
 
     /**
-     * update the delta time (time used for implementing frame rate
-     * independent movement)
+     * update the delta time (time difference between two intervals, used for
+     * implementing frame rate independent movement)
      */
     void updateDt();
 

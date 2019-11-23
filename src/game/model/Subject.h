@@ -51,7 +51,7 @@ public:
     /**
      * notify all observers that something happened
      */
-    virtual void notify();
+    virtual void notify() const;
 
 };
 

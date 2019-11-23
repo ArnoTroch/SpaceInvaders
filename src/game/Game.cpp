@@ -8,6 +8,7 @@ Game::Game() {
     model = std::make_shared<GameModel>();
     view = std::make_shared<GameView>(model);
     model->addObserver(view);
+    controller = std::make_shared<GameController>(model);
     dt = 0.0;
 }
 
@@ -31,10 +32,9 @@ void Game::run() {
 }
 
 void Game::update() {
-    model->update(dt);
+    controller->update(dt);
 }
 
 void Game::updateDt() {
     dt = Stopwatch::instance().restart();
-    std::cout << dt << std::endl;
 }

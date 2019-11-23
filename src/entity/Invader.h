@@ -8,6 +8,13 @@
 #include "Creature.h"
 
 namespace entity {
+    /**
+     * enum class to keep track of Invaders' current moving orientation
+     */
+    enum class InvaderMovingDirection {
+        left,
+        right
+    };
 
     /**
      * Class that represents the enemies (invaders) in the game.
@@ -15,6 +22,9 @@ namespace entity {
      * This class inherits from the Creature class.
      */
     class Invader : public Creature {
+    private:
+        InvaderMovingDirection moving_dir;
+
     public:
         typedef std::shared_ptr<Invader> Ptr;
 
@@ -28,6 +38,10 @@ namespace entity {
          * default destructor
          */
         ~Invader() override = default;
+
+        InvaderMovingDirection getMovingDirection() const;
+
+        void setMovingDirection(InvaderMovingDirection movingDir);
 
         /**
          * get relative path to resources for invader

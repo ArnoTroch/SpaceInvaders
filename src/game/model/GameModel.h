@@ -6,11 +6,16 @@
 #define SPACEINVADERS_GAMEMODEL_H
 
 #include "Subject.h"
-#include "../../entity/Entity.h"
+#include "../../entity/Player.h"
+#include "../../entity/Invader.h"
 
 class GameModel : public Subject {
 private:
-    std::vector<entity::Entity::Ptr> entities;
+    entity::Player::Ptr player; // player
+
+    std::vector<entity::Invader::Ptr> invaders; // enemies
+
+    // std::vector<entity::Shield::Ptr> shields;
 
 public:
     typedef std::shared_ptr<GameModel> Ptr;
@@ -19,14 +24,13 @@ public:
 
     virtual ~GameModel() = default;
 
-    const std::vector<entity::Entity::Ptr> &getEntities() const;
+    const entity::Player::Ptr &getPlayer() const;
 
-    void setEntities(const std::vector<entity::Entity::Ptr> &entities);
+    const std::vector<entity::Invader::Ptr> &getInvaders() const;
 
-    void notify() override;
+    void movePlayer(const Position &position);
 
-    void update(double dt);
-
+    void moveInvader(int i, const Position &position);
 };
 
 

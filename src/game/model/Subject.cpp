@@ -21,7 +21,7 @@ void Subject::removeObserver(const Observer::Ptr &observer) {
     }
 }
 
-void Subject::notify() {
+void Subject::notify() const {
     for (const Observer::Ptr &obs: observers) {
         obs->onNotify();
     }
