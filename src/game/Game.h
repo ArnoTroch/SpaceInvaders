@@ -16,7 +16,8 @@
 /**
  * Main class that combines the different parts of the game.
  *
- *
+ * The Game class contains the game model, view and controller, which are constructed when calling the
+ * Game constructor.
  */
 class Game {
 private:
@@ -31,14 +32,10 @@ private:
 public:
     Game();
 
-    /**
-     * run the game
-     */
+    /// run the game
     void run();
 
-    /**
-     * update the game model, which will notify the view to render
-     */
+    /// update the game model, which will notify the view to render
     void update();
 
     /**

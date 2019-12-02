@@ -8,7 +8,10 @@
 #include "../model/GameModel.h"
 
 /**
- * Class that handles input and updates the game model
+ * Class that handles input and updates the game model.
+ *
+ * The GameController class is a part of the MVC design pattern. Its goal is to process the user's
+ * keyboard input and tell the GameModel how to change its data (according to the keyboard input).
  */
 class GameController {
 private:
@@ -27,9 +30,7 @@ public:
      */
     explicit GameController(GameModel::Ptr model);
 
-    /**
-     * default destructor
-     */
+    /// default destructor
     virtual ~GameController() = default;
 
     /**

@@ -26,22 +26,15 @@ namespace entity {
          */
         Creature(const Position &position, double velocity);
 
-        /**
-         * default destructor
-         */
+        /// default destructor
         ~Creature() override = default;
 
-        /**
-         * get velocity of Creature
-         * @return velocity of Creature
-         */
+        /// get velocity
         double getVelocity() const;
 
-        /**
-         * set velocity of Creature
-         * @param velocity new velocity of Creature
-         */
+        /// set new velocity
         void setVelocity(double velocity);
+
 
     };
 

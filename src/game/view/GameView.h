@@ -9,6 +9,14 @@
 #include "../model/GameModel.h"
 #include <SFML/Graphics.hpp>
 
+/**
+ * Class used to graphically represent the current state of the game.
+ *
+ * The GameView class represents the current state of a certain GameModel object using the
+ * SFML library. It draws all the entities from the model on the screen.
+ * The GameView class inherits from the Observer class, as it has to observe the GameModel
+ * it is representing.
+ */
 class GameView : public Observer {
 private:
     GameModel::Ptr model;
@@ -18,14 +26,19 @@ private:
 public:
     typedef std::shared_ptr<GameView> Ptr;
 
+    /// constructor initialises a GameView with given GameModel object
     explicit GameView(GameModel::Ptr model);
 
+    /// default destructor
     ~GameView() override = default;
 
+    /// get SFML window
     sf::RenderWindow &getWindow();
 
+    /// render the current state of the observed GameModel object
     void render();
 
+    /// call necessary methods to change the game view when notified by GameModel
     void onNotify() override;
 
 };

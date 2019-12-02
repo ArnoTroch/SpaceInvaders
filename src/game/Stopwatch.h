@@ -10,6 +10,11 @@
 
 typedef std::chrono::system_clock::time_point Time;
 
+
+/**
+ * Singleton class used for measuring time differences between two timestamps.
+ *
+ */
 class Stopwatch {
 private:
     Stopwatch();
@@ -17,12 +22,16 @@ private:
     Time last_recorded_time;
 
 public:
+    /// default destructor
     virtual ~Stopwatch() = default;
 
+    /// call static instance of Stopwatch
     static Stopwatch &instance();
 
+    /// return elapsed time since last clock reset
     double getElapsedTime();
 
+    /// return elapsed time since last clock reset and restart the clock
     double restart();
 
 };

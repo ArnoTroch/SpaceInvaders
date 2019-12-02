@@ -18,22 +18,13 @@ class Observer {
 public:
     typedef std::shared_ptr<Observer> Ptr;
 
-    /**
-     * Default constructor
-     */
+    /// Default constructor
     Observer() = default;
 
-    /**
-     * Default destructor
-     */
+    /// Default destructor
     virtual ~Observer() = default;
 
-    /**
-     * Handle events when right notification is invoked.
-     *
-     * @param entity entity that is affected by the event
-     * @param event event to handle
-     */
+    /// Handle events when right notification is invoked by Subject.
     virtual void onNotify() = 0;
 };
 

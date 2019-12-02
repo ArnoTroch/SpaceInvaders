@@ -22,35 +22,22 @@ protected:
     std::vector<Observer::Ptr> observers;
 
 public:
-    /**
-     * default constructor
-     */
+    /// default constructor
     Subject() = default;
 
-    /**
-     * default destructor
-     */
+    /// default destructor
     ~Subject() = default;
 
+    /// get vector of observers
     const std::vector<Observer::Ptr> &getObservers() const;
 
-    /**
-     * add Observer object to list of observers
-     *
-     * @param observer Observer object to be added
-     */
+    /// add Observer object to list of observers
     void addObserver(const Observer::Ptr &observer);
 
-    /**
-     * remove Observer object from list of observers
-     *
-     * @param observer Observer object to be removed
-     */
+    /// remove certain Observer object from list of observers
     void removeObserver(const Observer::Ptr &observer);
 
-    /**
-     * notify all observers that something happened
-     */
+    /// notify all observers when something interesting happened
     virtual void notify() const;
 
 };

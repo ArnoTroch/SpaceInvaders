@@ -8,6 +8,7 @@
 #include "Creature.h"
 
 namespace entity {
+
     /**
      * enum class to keep track of Invaders' current moving orientation
      */
@@ -28,25 +29,19 @@ namespace entity {
     public:
         typedef std::shared_ptr<Invader> Ptr;
 
-        /**
-         * create an Invader with given position
-         * @param position invader position
-         */
+        /// constructor initialises an Invader with given position
         explicit Invader(const Position &position);
 
-        /**
-         * default destructor
-         */
+        /// default destructor
         ~Invader() override = default;
 
+        /// get direction Invader is moving in
         InvaderMovingDirection getMovingDirection() const;
 
+        /// set new moving direction for Invader
         void setMovingDirection(InvaderMovingDirection movingDir);
 
-        /**
-         * get relative path to resources for invader
-         * @return relative path to invader resources
-         */
+        /// get relative path to resources for Invader
         std::string getResourcePath() override;
 
     };

@@ -20,21 +20,13 @@ namespace entity {
     public:
         typedef std::shared_ptr<Player> Ptr;
 
-        /**
-         * create a Player with given position
-         * @param position player position
-         */
+        /// constructor initialises a Player with given position
         explicit Player(const Position &position);
 
-        /**
-         * default destructor
-         */
+        /// default destructor
         ~Player() override = default;
 
-        /**
-         * get relative path to resources for player
-         * @return relative path to player resources
-         */
+        /// get relative path to resources for player
         std::string getResourcePath() override;
     };
 }

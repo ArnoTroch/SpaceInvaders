@@ -15,6 +15,7 @@
  * This namespace contains everything that is linked to game entities.
  */
 namespace entity {
+
     /**
      * Abstract base class that every object in the game derives from.
      */
