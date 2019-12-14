@@ -10,14 +10,27 @@
 namespace entity {
 
     /**
+     * enum class to keep track of entity's current moving direction.
+     */
+    enum class MovingDirection {
+        LEFT,
+        RIGHT,
+        UP,
+        DOWN,
+        IDLE
+    };
+
+    /**
      * Abstract class that represents all living creatures in the game
      */
     class Creature : public Entity {
     private:
         double velocity;
 
+        MovingDirection direction;
+
     public:
-        typedef std::shared_ptr<Creature> Ptr;
+        using Ptr = std::shared_ptr<Creature>;
 
         /**
          * create a Creature
@@ -30,11 +43,14 @@ namespace entity {
         ~Creature() override = default;
 
         /// get velocity
-        double getVelocity() const;
+        [[nodiscard]] double getVelocity() const;
 
         /// set new velocity
         void setVelocity(double velocity);
 
+        [[nodiscard]] MovingDirection getDirection() const;
+
+        void setDirection(MovingDirection direction);
 
     };
 

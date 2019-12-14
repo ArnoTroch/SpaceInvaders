@@ -17,12 +17,10 @@ class GameController {
 private:
     GameModel::Ptr model; // model being handled by controller
 
-    void _handlePlayer(double dt);
-
-    void _handleInvaders(double dt);
+    void _handlePlayer();
 
 public:
-    typedef std::shared_ptr<GameController> Ptr;
+    using Ptr = std::shared_ptr<GameController>;
 
     /**
      * create a GameController that handles a specific model

@@ -18,14 +18,14 @@ void GameView::render() {
     // render the player
     texture.loadFromFile(model->getPlayer()->getResourcePath());
     sprite.setTexture(texture);
-    sprite.setPosition(static_cast<float>(model->getPlayer()->getPosition().getX()),
-                       static_cast<float>(model->getPlayer()->getPosition().getY()));
+    sprite.setPosition(static_cast<float>(model->getPlayer()->getPosition().first),
+                       static_cast<float>(model->getPlayer()->getPosition().second));
     window.draw(sprite);
     // render the invader
     texture.loadFromFile(model->getInvaders()[0]->getResourcePath());
     sprite.setTexture(texture);
-    sprite.setPosition(static_cast<float>(model->getInvaders()[0]->getPosition().getX()),
-                       static_cast<float>(model->getInvaders()[0]->getPosition().getY()));
+    sprite.setPosition(static_cast<float>(model->getInvaders()[0]->getPosition().first),
+                       static_cast<float>(model->getInvaders()[0]->getPosition().second));
     window.draw(sprite);
     // display the window
     window.display();

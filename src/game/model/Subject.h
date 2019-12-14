@@ -29,7 +29,7 @@ public:
     ~Subject() = default;
 
     /// get vector of observers
-    const std::vector<Observer::Ptr> &getObservers() const;
+    [[nodiscard]] const std::vector<Observer::Ptr> &getObservers() const;
 
     /// add Observer object to list of observers
     void addObserver(const Observer::Ptr &observer);

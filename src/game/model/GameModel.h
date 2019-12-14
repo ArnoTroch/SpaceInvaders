@@ -14,7 +14,9 @@
  *
  * The GameModel class is a part of the MVC design pattern. It is used as the 'database' of the game.
  * It contains all the entities and performs modifications to them, like changing their position, health,
- * etc.
+ * etc. The dimensions of the game model world are [-4,4] x [-3,3], so the game model will know nothing about
+ * the actual pixel resolution of the screen. The conversion from this coordinate systems to the pixel values
+ * will be done by the Transformation class.
  * The GameModel class inherits from the Subject class, as it has to be observed by a GameView object.
  */
 class GameModel : public Subject {
@@ -25,8 +27,12 @@ private:
 
     // std::vector<entity::Shield::Ptr> shields;
 
+    void _movePlayer(double dt);
+
+    void _moveInvaders(double dt);
+
 public:
-    typedef std::shared_ptr<GameModel> Ptr;
+    using Ptr = std::shared_ptr<GameModel>;
 
     /// default constructor
     GameModel();
@@ -34,24 +40,21 @@ public:
     /// default destructor
     virtual ~GameModel() = default;
 
-    /// get Player
-    const entity::Player::Ptr &getPlayer() const;
+    [[nodiscard]] const entity::Player::Ptr &getPlayer() const;
 
-    /// get Invaders
-    const std::vector<entity::Invader::Ptr> &getInvaders() const;
+    [[nodiscard]] const std::vector<entity::Invader::Ptr> &getInvaders() const;
 
     /**
-     * move Player to a new position
-     * @param position
+     * change player moving direction
+     * @param movingDirection new moving direction of player
      */
-    void movePlayer(const Position &position);
+    void setPlayerDirection(entity::MovingDirection movingDirection);
 
     /**
-     * move Invader i to a new position
-     * @param i index of Invader in invaders list
-     * @param position new position of invader
+     * update the game model
+     * @param dt delta time
      */
-    void moveInvader(int i, const Position &position);
+    void update(double dt);
 };
 
 

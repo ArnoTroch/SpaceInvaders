@@ -16,7 +16,7 @@
  */
 class Observer {
 public:
-    typedef std::shared_ptr<Observer> Ptr;
+    using Ptr = std::shared_ptr<Observer>;
 
     /// Default constructor
     Observer() = default;

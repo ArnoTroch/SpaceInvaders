@@ -5,7 +5,6 @@
 #ifndef SPACEINVADERS_TRANSFORMATION_H
 #define SPACEINVADERS_TRANSFORMATION_H
 
-#include "../entity/Position.h"
 #include <memory>
 
 /**

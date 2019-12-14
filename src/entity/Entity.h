@@ -5,7 +5,6 @@
 #ifndef SPACEINVADERS_ENTITY_H
 #define SPACEINVADERS_ENTITY_H
 
-#include "Position.h"
 #include <memory>
 #include <string>
 
@@ -15,6 +14,7 @@
  * This namespace contains everything that is linked to game entities.
  */
 namespace entity {
+    using Position = std::pair<double, double>;
 
     /**
      * Abstract base class that every object in the game derives from.
@@ -24,13 +24,13 @@ namespace entity {
         Position position; // position of entity
 
     public:
-        typedef std::shared_ptr<Entity> Ptr; // simplify commonly used type
+        using Ptr = std::shared_ptr<Entity>; // simplify commonly used type
 
         /**
          * construct an Entity with given position
          * @param position position of Entity
          */
-        explicit Entity(const Position &position);
+        explicit Entity(Position position);
 
         /**
          * default destructor
@@ -41,7 +41,7 @@ namespace entity {
          * get position of Entity
          * @return position of Entity
          */
-        const Position &getPosition() const;
+        [[nodiscard]] const Position &getPosition() const;
 
         /**
          * set position of Entity

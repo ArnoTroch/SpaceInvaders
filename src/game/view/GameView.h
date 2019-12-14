@@ -24,7 +24,7 @@ private:
     sf::RenderWindow window;
 
 public:
-    typedef std::shared_ptr<GameView> Ptr;
+    using Ptr = std::shared_ptr<GameView>;
 
     /// constructor initialises a GameView with given GameModel object
     explicit GameView(GameModel::Ptr model);

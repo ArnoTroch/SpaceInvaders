@@ -18,7 +18,7 @@ namespace entity {
     private:
 
     public:
-        typedef std::shared_ptr<Player> Ptr;
+        using Ptr = std::shared_ptr<Player>;
 
         /// constructor initialises a Player with given position
         explicit Player(const Position &position);

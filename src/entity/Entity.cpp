@@ -4,13 +4,15 @@
 
 #include "Entity.h"
 
-entity::Entity::Entity(const Position &position) : position(position) {}
+#include <utility>
 
-const Position &entity::Entity::getPosition() const {
+entity::Entity::Entity(entity::Position position) : position(std::move(position)) {}
+
+const entity::Position &entity::Entity::getPosition() const {
     return position;
 }
 
-void entity::Entity::setPosition(const Position &pos) {
+void entity::Entity::setPosition(const entity::Position &pos) {
     Entity::position = pos;
 }
 
