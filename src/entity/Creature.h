@@ -48,8 +48,10 @@ namespace entity {
         /// set new velocity
         void setVelocity(double velocity);
 
-        [[nodiscard]] MovingDirection getDirection() const;
+        /// get moving direction
+        [[nodiscard]] MovingDirection getMovingDirection() const;
 
+        /// set new moving direction
         void setDirection(MovingDirection direction);
 
     };

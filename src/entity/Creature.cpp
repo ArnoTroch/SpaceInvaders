@@ -15,7 +15,7 @@ void entity::Creature::setVelocity(double v) {
     Creature::velocity = v;
 }
 
-entity::MovingDirection entity::Creature::getDirection() const {
+entity::MovingDirection entity::Creature::getMovingDirection() const {
     return direction;
 }
 

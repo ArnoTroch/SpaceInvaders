@@ -40,8 +40,10 @@ public:
     /// default destructor
     virtual ~GameModel() = default;
 
+    /// get player
     [[nodiscard]] const entity::Player::Ptr &getPlayer() const;
 
+    /// get invaders
     [[nodiscard]] const std::vector<entity::Invader::Ptr> &getInvaders() const;
 
     /**

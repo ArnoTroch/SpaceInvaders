@@ -11,7 +11,7 @@
 // ----------------//
 void GameModel::_movePlayer(double dt) {
     entity::Position new_pos;
-    switch (player->getDirection()) {
+    switch (player->getMovingDirection()) {
         case entity::MovingDirection::LEFT:
             new_pos = entity::Position(player->getPosition().first - (player->getVelocity() * dt),
                                        player->getPosition().second);
@@ -29,13 +29,13 @@ void GameModel::_movePlayer(double dt) {
 
 void GameModel::_moveInvaders(double dt) {
     for (entity::Invader::Ptr &inv: invaders) {
-        if ((inv->getDirection() == entity::MovingDirection::LEFT && inv->getPosition().first > 200) ||
+        if ((inv->getMovingDirection() == entity::MovingDirection::LEFT && inv->getPosition().first > 200) ||
             inv->getPosition().first > 800) {
             // move invader left
             inv->setDirection(entity::MovingDirection::LEFT);
             inv->setPosition(entity::Position(inv->getPosition().first - (inv->getVelocity() * dt),
                                               inv->getPosition().second));
-        } else if ((inv->getDirection() == entity::MovingDirection::RIGHT && inv->getPosition().first < 800) ||
+        } else if ((inv->getMovingDirection() == entity::MovingDirection::RIGHT && inv->getPosition().first < 800) ||
                    inv->getPosition().first < 200) {
             // move invader right
             inv->setDirection(entity::MovingDirection::RIGHT);

@@ -26,32 +26,19 @@ namespace entity {
     public:
         using Ptr = std::shared_ptr<Entity>; // simplify commonly used type
 
-        /**
-         * construct an Entity with given position
-         * @param position position of Entity
-         */
+        /// construct an Entity with given position
         explicit Entity(Position position);
 
-        /**
-         * default destructor
-         */
+        /// default destructor
         virtual ~Entity() = default;
 
-        /**
-         * get position of Entity
-         * @return position of Entity
-         */
+        /// get position of Entity
         [[nodiscard]] const Position &getPosition() const;
 
-        /**
-         * set position of Entity
-         * @param position new position of Entity
-         */
+        /// set new position of Entity
         void setPosition(const Position &position);
 
-        /**
-         * get relative path containing textures for displaying an Entity
-         */
+        /// get relative path containing textures for displaying an Entity
         virtual std::string getResourcePath() = 0;
 
     };
