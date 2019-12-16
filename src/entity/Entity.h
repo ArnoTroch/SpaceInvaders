@@ -16,18 +16,21 @@
 namespace entity {
     using Position = std::pair<double, double>;
 
+    using Dimension = std::pair<double, double>;
+
     /**
      * Abstract base class that every object in the game derives from.
      */
     class Entity {
     private:
-        Position position; // position of entity
+        Position position;
 
+        Dimension dimension;
     public:
         using Ptr = std::shared_ptr<Entity>; // simplify commonly used type
 
-        /// construct an Entity with given position
-        explicit Entity(Position position);
+        /// construct an Entity with given position and dimension
+        Entity(Position position, Dimension dimension);
 
         /// default destructor
         virtual ~Entity() = default;
@@ -37,6 +40,9 @@ namespace entity {
 
         /// set new position of Entity
         void setPosition(const Position &position);
+
+        /// get dimension of Entity
+        [[nodiscard]] const Dimension &getDimension() const;
 
         /// get relative path containing textures for displaying an Entity
         virtual std::string getResourcePath() = 0;

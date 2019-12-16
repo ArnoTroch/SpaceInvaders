@@ -29,14 +29,14 @@ void GameModel::_movePlayer(double dt) {
 
 void GameModel::_moveInvaders(double dt) {
     for (entity::Invader::Ptr &inv: invaders) {
-        if ((inv->getMovingDirection() == entity::MovingDirection::LEFT && inv->getPosition().first > 200) ||
-            inv->getPosition().first > 800) {
+        if ((inv->getMovingDirection() == entity::MovingDirection::LEFT && inv->getPosition().first > -3.5) ||
+            inv->getPosition().first > 3.5) {
             // move invader left
             inv->setDirection(entity::MovingDirection::LEFT);
             inv->setPosition(entity::Position(inv->getPosition().first - (inv->getVelocity() * dt),
                                               inv->getPosition().second));
-        } else if ((inv->getMovingDirection() == entity::MovingDirection::RIGHT && inv->getPosition().first < 800) ||
-                   inv->getPosition().first < 200) {
+        } else if ((inv->getMovingDirection() == entity::MovingDirection::RIGHT && inv->getPosition().first < 3.5) ||
+                   inv->getPosition().first < -3.5) {
             // move invader right
             inv->setDirection(entity::MovingDirection::RIGHT);
             inv->setPosition(entity::Position(inv->getPosition().first + (inv->getVelocity() * dt),
@@ -49,18 +49,7 @@ void GameModel::_moveInvaders(double dt) {
 // public methods
 // ----------------//
 GameModel::GameModel() {
-    player = std::make_shared<entity::Player>(entity::Position(600, 700));
-    invaders.push_back(std::make_shared<entity::Invader>(entity::Position(400, 400)));
-}
-
-void GameModel::setPlayerDirection(entity::MovingDirection movingDirection) {
-    player->setDirection(movingDirection);
-}
-
-void GameModel::update(double dt) {
-    _movePlayer(dt);
-    _moveInvaders(dt);
-    notify();
+    startGame();
 }
 
 const entity::Player::Ptr &GameModel::getPlayer() const {
@@ -69,5 +58,20 @@ const entity::Player::Ptr &GameModel::getPlayer() const {
 
 const std::vector<entity::Invader::Ptr> &GameModel::getInvaders() const {
     return invaders;
+}
+
+void GameModel::setPlayerDirection(entity::MovingDirection movingDirection) {
+    player->setDirection(movingDirection);
+}
+
+void GameModel::startGame() {
+    player = std::make_shared<entity::Player>(); // make player
+    invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-1, 2.5))); // add invader
+}
+
+void GameModel::update(double dt) {
+    _movePlayer(dt);
+    _moveInvaders(dt);
+    notify();
 }
 

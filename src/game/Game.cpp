@@ -14,6 +14,7 @@ Game::Game() {
 
 void Game::run() {
     Stopwatch::instance();
+    Transformation::instance().setWindowSize(view->getWindow().getSize().x, view->getWindow().getSize().y);
     // this code is copied from the SFML tutorials
     // https://www.sfml-dev.org/tutorials/2.4/graphics-draw.php
 
@@ -23,8 +24,13 @@ void Game::run() {
         sf::Event event{};
         while (view->getWindow().pollEvent(event)) {
             // "close requested" event: we close the window
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed) {
                 view->getWindow().close();
+//            } else if (event.type == sf::Event::Resized) {
+//                // give the new window size to the Transformation class, so we can correctly
+//                // convert the game model dimensions to the right pixels on the screen
+//                Transformation::instance().setWindowSize(view->getWindow().getSize().x, view->getWindow().getSize().y);
+            }
         }
         update(); // update game model
         updateDt(); // update delta time

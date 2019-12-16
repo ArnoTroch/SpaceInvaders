@@ -53,6 +53,11 @@ public:
     void setPlayerDirection(entity::MovingDirection movingDirection);
 
     /**
+     * start the actual game by creating all necessary entities
+     */
+    void startGame();
+
+    /**
      * update the game model
      * @param dt delta time
      */

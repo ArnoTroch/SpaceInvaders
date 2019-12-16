@@ -20,8 +20,8 @@ namespace entity {
     public:
         using Ptr = std::shared_ptr<Player>;
 
-        /// constructor initialises a Player with given position
-        explicit Player(const Position &position);
+        /// default constructor
+        Player();
 
         /// default destructor
         ~Player() override = default;

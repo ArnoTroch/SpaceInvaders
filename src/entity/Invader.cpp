@@ -4,7 +4,7 @@
 
 #include "Invader.h"
 
-entity::Invader::Invader(const Position &position) : Creature(position, 200) {
+entity::Invader::Invader(const Position &position) : Creature(position, {0.4, 0.3}, 2) {
     setDirection(MovingDirection::RIGHT);
 }
 

@@ -4,8 +4,8 @@
 
 #include "Creature.h"
 
-entity::Creature::Creature(const Position &position, double velocity) : Entity(position), velocity(velocity),
-                                                                        direction(MovingDirection::IDLE) {}
+entity::Creature::Creature(const Position &position, const Dimension &dimension, double velocity) :
+        Entity(position, dimension), velocity(velocity), direction(MovingDirection::IDLE) {}
 
 double entity::Creature::getVelocity() const {
     return velocity;

@@ -33,11 +33,12 @@ namespace entity {
         using Ptr = std::shared_ptr<Creature>;
 
         /**
-         * create a Creature
+         * * create a Creature
          * @param position position of creature
+         * @param dimension dimension of creature
          * @param velocity velocity of creature
          */
-        Creature(const Position &position, double velocity);
+        Creature(const Position &position, const Dimension &dimension, double velocity);
 
         /// default destructor
         ~Creature() override = default;

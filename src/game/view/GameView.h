@@ -7,6 +7,7 @@
 
 #include "Observer.h"
 #include "../model/GameModel.h"
+#include "../Transformation.h"
 #include <SFML/Graphics.hpp>
 
 /**
@@ -22,6 +23,12 @@ private:
     GameModel::Ptr model;
 
     sf::RenderWindow window;
+
+    // adjust player sprite origin, position and scale
+    static void _adjustPlayerSprite(sf::Sprite &sprite, const entity::Player::Ptr &player);
+
+    // adjust invader sprite origin, position and scale
+    static void _adjustInvaderSprite(sf::Sprite &sprite, const entity::Invader::Ptr &invader);
 
 public:
     using Ptr = std::shared_ptr<GameView>;

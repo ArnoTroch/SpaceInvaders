@@ -6,7 +6,9 @@
 
 #include <utility>
 
-entity::Entity::Entity(entity::Position position) : position(std::move(position)) {}
+entity::Entity::Entity(entity::Position position, entity::Dimension dimension) : position(std::move(position)),
+                                                                                 dimension(std::move(dimension)) {}
+
 
 const entity::Position &entity::Entity::getPosition() const {
     return position;
@@ -14,5 +16,9 @@ const entity::Position &entity::Entity::getPosition() const {
 
 void entity::Entity::setPosition(const entity::Position &pos) {
     Entity::position = pos;
+}
+
+const entity::Dimension &entity::Entity::getDimension() const {
+    return dimension;
 }
 
