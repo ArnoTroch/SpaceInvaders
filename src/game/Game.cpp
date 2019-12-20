@@ -4,6 +4,21 @@
 
 #include "Game.h"
 
+// ----------------//
+// private methods
+// ----------------//
+void Game::_update() {
+    controller->update(dt);
+}
+
+void Game::_updateDt() {
+    dt = Stopwatch::instance().restart();
+}
+
+
+// ----------------//
+// public methods
+// ----------------//
 Game::Game() {
     model = std::make_shared<GameModel>();
     view = std::make_shared<GameView>(model);
@@ -28,15 +43,7 @@ void Game::run() {
                 view->getWindow().close();
             }
         }
-        update(); // update game model
-        updateDt(); // update delta time
+        _update(); // update game model
+        _updateDt(); // update delta time
     }
-}
-
-void Game::update() {
-    controller->update(dt);
-}
-
-void Game::updateDt() {
-    dt = Stopwatch::instance().restart();
 }

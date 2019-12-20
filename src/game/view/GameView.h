@@ -33,19 +33,31 @@ private:
 public:
     using Ptr = std::shared_ptr<GameView>;
 
-    /// constructor initialises a GameView with given GameModel object
+    /**
+     * create a GameView
+     * @param model GameModel being observed by new GameView
+     */
     explicit GameView(GameModel::Ptr model);
 
-    /// default destructor
+    /**
+     * default destructor
+     */
     ~GameView() override = default;
 
-    /// get SFML window
+    /**
+     * get SFML RenderWindow
+     * @return SFML RenderWindow of GameView
+     */
     sf::RenderWindow &getWindow();
 
-    /// render the current state of the observed GameModel object
+    /**
+     * render the current state of the observed GameModel object
+     */
     void render();
 
-    /// call necessary methods to change the game view when notified by GameModel
+    /**
+     * call necessary methods to change GameView when notified by GameModel
+     */
     void onNotify() override;
 
 };

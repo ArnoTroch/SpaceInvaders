@@ -20,13 +20,20 @@ namespace entity {
     public:
         using Ptr = std::shared_ptr<Player>;
 
-        /// default constructor
+        /**
+         * create a Player
+         */
         Player();
 
-        /// default destructor
+        /**
+         * default destructor
+         */
         ~Player() override = default;
 
-        /// get relative path to resources for player
+        /**
+         * get relative path to resources
+         * @return relative path to resources for Player
+         */
         std::string getResourcePath() override;
     };
 }

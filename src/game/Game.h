@@ -29,20 +29,20 @@ private:
 
     double dt;
 
+    void _update();
+
+    void _updateDt();
+
 public:
+    /**
+     * create a Game
+     */
     Game();
 
-    /// run the game
-    void run();
-
-    /// update the game model, which will notify the view to render
-    void update();
-
     /**
-     * update the delta time (time difference between two intervals, used for
-     * implementing frame rate independent movement)
+     * run the game
      */
-    void updateDt();
+    void run();
 
 };
 

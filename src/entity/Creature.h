@@ -9,10 +9,6 @@
 #include <cmath>
 
 namespace entity {
-
-    // maximum value the x and y coordinates of an entity can be
-    static const int MAX_X = 4, MAX_Y = 3;
-
     /**
      * enum class to keep track of entity's current moving direction.
      */
@@ -38,27 +34,41 @@ namespace entity {
 
         /**
          * * create a Creature
-         * @param position position of creature
-         * @param dimension dimension of creature
-         * @param velocity velocity of creature
+         * @param position position of new Creature
+         * @param dimension dimension of new Creature
+         * @param velocity velocity of new Creature
          */
         Creature(const Position &position, const Dimension &dimension, double velocity);
 
-        /// default destructor
+        /**
+         * default destructor
+         */
         ~Creature() override = default;
 
-        /// get velocity
+        /**
+         * get velocity
+         * @return velocity of Creature
+         */
         [[nodiscard]] double getVelocity() const;
 
-        /// set new velocity
-        void setVelocity(double velocity);
-
-        /// get moving direction
+        /**
+         * get moving direction
+         * @return moving direction of Creature
+         */
         [[nodiscard]] MovingDirection getMovingDirection() const;
 
-        /// set new moving direction
+        /**
+         * set new moving direction
+         * @param direction new moving direction of Creature
+         */
         void setMovingDirection(MovingDirection direction);
 
+        /**
+         * check if move in current direction with current velocity is possible, i.e. is still
+         * in GameModel world boundaries.
+         * @param dt delta time
+         * @return true if move is possible, false otherwise
+         */
         [[nodiscard]] bool isPossibleMove(double dt) const;
 
         /**

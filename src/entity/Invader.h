@@ -20,13 +20,21 @@ namespace entity {
     public:
         using Ptr = std::shared_ptr<Invader>;
 
-        /// constructor initialises an Invader with given position
+        /**
+         * create an Invader
+         * @param position position of new Invader
+         */
         explicit Invader(const Position &position);
 
-        /// default destructor
+        /**
+         * default destructor
+         */
         ~Invader() override = default;
 
-        /// get relative path to resources for Invader
+        /**
+         * get relative path to resources
+         * @return relative path to resources for Invader
+         */
         std::string getResourcePath() override;
 
     };

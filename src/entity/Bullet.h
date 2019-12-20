@@ -5,10 +5,14 @@
 #ifndef SPACEINVADERS_BULLET_H
 #define SPACEINVADERS_BULLET_H
 
+#include "Entity.h"
 
-class Bullet {
+namespace entity {
 
-};
+    class Bullet : public Entity {
+
+    };
+}
 
 
 #endif //SPACEINVADERS_BULLET_H

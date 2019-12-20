@@ -22,16 +22,27 @@ private:
     Time last_recorded_time;
 
 public:
-    /// default destructor
+    /**
+     * default destructor
+     */
     virtual ~Stopwatch() = default;
 
-    /// call static instance of Stopwatch
+    /**
+     * call static instance of Stopwatch
+     * @return static instance of Stopwatch
+     */
     static Stopwatch &instance();
 
-    /// return elapsed time since last clock reset
+    /**
+     * get elapsed time
+     * @return elapsed time since last clock startup/restart
+     */
     double getElapsedTime();
 
-    /// return elapsed time since last clock reset and restart the clock
+    /**
+     * restart clock and get elapsed time since last clock reset
+     * @return elapsed time since last clock reset
+     */
     double restart();
 
 };

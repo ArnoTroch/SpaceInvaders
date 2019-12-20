@@ -26,11 +26,13 @@ public:
 
     /**
      * create a GameController that handles a specific model
-     * @param model model to be handled by controller
+     * @param model model to be handled by new GameController
      */
     explicit GameController(GameModel::Ptr model);
 
-    /// default destructor
+    /**
+     *  default destructor
+     */
     virtual ~GameController() = default;
 
     /**

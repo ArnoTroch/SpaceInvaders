@@ -34,27 +34,37 @@ private:
 public:
     using Ptr = std::shared_ptr<GameModel>;
 
-    /// default constructor
+    /**
+     * create a GameModel
+     */
     GameModel();
 
-    /// default destructor
+    /**
+     * default destructor
+     */
     virtual ~GameModel() = default;
 
-    /// get player
+    /**
+     * get player
+     * @return player of GameModel
+     */
     [[nodiscard]] const entity::Player::Ptr &getPlayer() const;
 
-    /// get invaders
+    /**
+     * get invaders
+     * @return invaders of GameModel
+     */
     [[nodiscard]] const std::vector<entity::Invader::Ptr> &getInvaders() const;
 
     /**
-     * change player moving direction
-     * @param movingDirection new moving direction of player
+     * set new moving direction for player
+     * @param movingDirection new moving direction for player
      */
     void setPlayerDirection(entity::MovingDirection movingDirection);
 
     /**
-     * change invaders moving direction
-     * @param movingDirection new moving direction of invaders
+     * set new moving direction for all invaders
+     * @param movingDirection new moving direction for all invaders
      */
     void setInvaderDirection(entity::MovingDirection movingDirection);
 

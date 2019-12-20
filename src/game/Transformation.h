@@ -24,10 +24,14 @@ private:
 
     double windowX{}, windowY{};
 public:
-    /// default destructor
+    /**
+     * default destructor
+     */
     virtual ~Transformation() = default;
 
-    /// call static instance of Transformation class
+    /**
+     * call static instance of Transformation class
+     */
     static Transformation &instance();
 
     /**
@@ -38,6 +42,11 @@ public:
      */
     void setWindowSize(double x, double y);
 
+    /**
+     * transform Sprite representing an Entity to fit on the GameView window
+     * @param sprite Sprite to be transformed
+     * @param entity Entity represented by sprite
+     */
     void transform(sf::Sprite &sprite, const entity::Entity::Ptr &entity);
 
 };

@@ -14,6 +14,9 @@
  * This namespace contains everything that is linked to game entities.
  */
 namespace entity {
+    // maximum value of the x and y coordinates of an entity
+    static const int MAX_X = 4, MAX_Y = 3;
+
     using Position = std::pair<double, double>;
 
     using Dimension = std::pair<double, double>;
@@ -26,25 +29,44 @@ namespace entity {
         Position position;
 
         Dimension dimension;
+
     public:
         using Ptr = std::shared_ptr<Entity>; // simplify commonly used type
 
-        /// construct an Entity with given position and dimension
+        /**
+         * create an Entity
+         * @param position position of new Entity
+         * @param dimension dimension of new Entity
+         */
         Entity(Position position, Dimension dimension);
 
-        /// default destructor
+        /**
+         * default destructor
+         */
         virtual ~Entity() = default;
 
-        /// get position of Entity
+        /**
+         * get position
+         * @return position of Entity
+         */
         [[nodiscard]] const Position &getPosition() const;
 
-        /// set new position of Entity
+        /**
+         * set new position
+         * @param position new position of Entity
+         */
         void setPosition(const Position &position);
 
-        /// get dimension of Entity
+        /**
+         * get dimension
+         * @return dimension of Entity
+         */
         [[nodiscard]] const Dimension &getDimension() const;
 
-        /// get relative path containing textures for displaying an Entity
+        /**
+         * get relative path containing textures for displaying an Entity
+         * @return relative path to textures
+         */
         virtual std::string getResourcePath() = 0;
 
     };
