@@ -10,38 +10,12 @@
 // private methods
 // ----------------//
 void GameModel::_movePlayer(double dt) {
-    entity::Position new_pos;
-    switch (player->getMovingDirection()) {
-        case entity::MovingDirection::LEFT:
-            new_pos = entity::Position(player->getPosition().first - (player->getVelocity() * dt),
-                                       player->getPosition().second);
-            player->setPosition(new_pos);
-            break;
-        case entity::MovingDirection::RIGHT:
-            new_pos = entity::Position(player->getPosition().first + (player->getVelocity() * dt),
-                                       player->getPosition().second);
-            player->setPosition(new_pos);
-            break;
-        default:
-            break;
-    }
+    player->move(dt);
 }
 
 void GameModel::_moveInvaders(double dt) {
     for (entity::Invader::Ptr &inv: invaders) {
-        if ((inv->getMovingDirection() == entity::MovingDirection::LEFT && inv->getPosition().first > -3.5) ||
-            inv->getPosition().first > 3.5) {
-            // move invader left
-            inv->setDirection(entity::MovingDirection::LEFT);
-            inv->setPosition(entity::Position(inv->getPosition().first - (inv->getVelocity() * dt),
-                                              inv->getPosition().second));
-        } else if ((inv->getMovingDirection() == entity::MovingDirection::RIGHT && inv->getPosition().first < 3.5) ||
-                   inv->getPosition().first < -3.5) {
-            // move invader right
-            inv->setDirection(entity::MovingDirection::RIGHT);
-            inv->setPosition(entity::Position(inv->getPosition().first + (inv->getVelocity() * dt),
-                                              inv->getPosition().second));
-        }
+        inv->move(dt);
     }
 }
 
@@ -61,12 +35,25 @@ const std::vector<entity::Invader::Ptr> &GameModel::getInvaders() const {
 }
 
 void GameModel::setPlayerDirection(entity::MovingDirection movingDirection) {
-    player->setDirection(movingDirection);
+    player->setMovingDirection(movingDirection);
 }
+
+void GameModel::setInvaderDirection(entity::MovingDirection movingDirection) {
+    for (entity::Invader::Ptr &inv: invaders) {
+        inv->setMovingDirection(movingDirection);
+    }
+}
+
 
 void GameModel::startGame() {
     player = std::make_shared<entity::Player>(); // make player
-    invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-1, 2.5))); // add invader
+    for (int i = 0; i < 11; i++) { // make invaders
+        invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-3.8 + (0.5 * i), 2.8)));
+        invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-3.8 + (0.5 * i), 2.4)));
+        invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-3.8 + (0.5 * i), 2.0)));
+        invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-3.8 + (0.5 * i), 1.6)));
+        //invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-3.8 + (0.5 * i), 1.2)));
+    }
 }
 
 void GameModel::update(double dt) {
@@ -74,4 +61,3 @@ void GameModel::update(double dt) {
     _moveInvaders(dt);
     notify();
 }
-

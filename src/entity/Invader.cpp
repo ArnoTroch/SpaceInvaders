@@ -4,8 +4,8 @@
 
 #include "Invader.h"
 
-entity::Invader::Invader(const Position &position) : Creature(position, {0.4, 0.3}, 2) {
-    setDirection(MovingDirection::RIGHT);
+entity::Invader::Invader(const Position &position) : Creature(position, {0.4, 0.3}, 0.5) {
+    setMovingDirection(MovingDirection::RIGHT);
 }
 
 std::string entity::Invader::getResourcePath() {

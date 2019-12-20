@@ -6,8 +6,12 @@
 #define SPACEINVADERS_CREATURE_H
 
 #include "Entity.h"
+#include <cmath>
 
 namespace entity {
+
+    // maximum value the x and y coordinates of an entity can be
+    static const int MAX_X = 4, MAX_Y = 3;
 
     /**
      * enum class to keep track of entity's current moving direction.
@@ -53,7 +57,16 @@ namespace entity {
         [[nodiscard]] MovingDirection getMovingDirection() const;
 
         /// set new moving direction
-        void setDirection(MovingDirection direction);
+        void setMovingDirection(MovingDirection direction);
+
+        [[nodiscard]] bool isPossibleMove(double dt) const;
+
+        /**
+         * move Creature in current direction with current velocity
+         * @param dt delta time
+         * @return true if move is in GameModel boundaries, false otherwise
+         */
+        bool move(double dt);
 
     };
 

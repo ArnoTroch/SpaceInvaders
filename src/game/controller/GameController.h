@@ -19,6 +19,8 @@ private:
 
     void _handlePlayer();
 
+    void _handleInvaders(double dt);
+
 public:
     using Ptr = std::shared_ptr<GameController>;
 

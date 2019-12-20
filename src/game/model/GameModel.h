@@ -53,6 +53,12 @@ public:
     void setPlayerDirection(entity::MovingDirection movingDirection);
 
     /**
+     * change invaders moving direction
+     * @param movingDirection new moving direction of invaders
+     */
+    void setInvaderDirection(entity::MovingDirection movingDirection);
+
+    /**
      * start the actual game by creating all necessary entities
      */
     void startGame();

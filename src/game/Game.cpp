@@ -26,10 +26,6 @@ void Game::run() {
             // "close requested" event: we close the window
             if (event.type == sf::Event::Closed) {
                 view->getWindow().close();
-//            } else if (event.type == sf::Event::Resized) {
-//                // give the new window size to the Transformation class, so we can correctly
-//                // convert the game model dimensions to the right pixels on the screen
-//                Transformation::instance().setWindowSize(view->getWindow().getSize().x, view->getWindow().getSize().y);
             }
         }
         update(); // update game model
