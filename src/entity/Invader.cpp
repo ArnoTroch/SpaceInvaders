@@ -8,6 +8,22 @@ entity::Invader::Invader(const Position &position) : Creature(position, {0.4, 0.
     setMovingDirection(MovingDirection::RIGHT);
 }
 
+std::weak_ptr<entity::Bullet> entity::Invader::getBullet() const {
+    return bullet;
+}
+
+void entity::Invader::shoot() {
+    if (bullet == nullptr) {
+        bullet = std::make_shared<Bullet>(getPosition(), MovingDirection::DOWN);
+        bullet->setPosition({getPosition().first,
+                             getPosition().second - ((getDimension().second + bullet->getDimension().second) / 2)});
+    }
+}
+
+void entity::Invader::removeBullet() {
+    bullet.reset();
+}
+
 std::string entity::Invader::getResourcePath() {
     return RESOURCES_DIR + "invader.png";
 }

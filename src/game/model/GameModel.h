@@ -8,6 +8,7 @@
 #include "Subject.h"
 #include "../../entity/Player.h"
 #include "../../entity/Invader.h"
+#include "../../entity/Bullet.h"
 
 /**
  * Class containing all the game data.
@@ -25,11 +26,11 @@ private:
 
     std::vector<entity::Invader::Ptr> invaders; // enemies
 
-    // std::vector<entity::Shield::Ptr> shields;
+    // std::vector<entity::Shield::Ptr> shields; // shields
 
-    void _movePlayer(double dt);
+    void _updatePlayer(double dt);
 
-    void _moveInvaders(double dt);
+    void _updateInvaders(double dt);
 
 public:
     using Ptr = std::shared_ptr<GameModel>;
@@ -67,6 +68,11 @@ public:
      * @param movingDirection new moving direction for all invaders
      */
     void setInvaderDirection(entity::MovingDirection movingDirection);
+
+    /**
+     * set Player Bullet, if it doesn't exist yet
+     */
+    void setPlayerBullet();
 
     /**
      * start the actual game by creating all necessary entities

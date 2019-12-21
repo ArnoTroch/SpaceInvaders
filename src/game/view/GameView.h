@@ -24,11 +24,8 @@ private:
 
     sf::RenderWindow window;
 
-    // adjust player sprite origin, position and scale
-    static void _adjustPlayerSprite(sf::Sprite &sprite, const entity::Player::Ptr &player);
-
-    // adjust invader sprite origin, position and scale
-    static void _adjustInvaderSprite(sf::Sprite &sprite, const entity::Invader::Ptr &invader);
+    // adjust sprite origin, position and scale
+    static void _adjustSprite(sf::Sprite &sprite, const entity::Entity::Ptr &entity);
 
 public:
     using Ptr = std::shared_ptr<GameView>;

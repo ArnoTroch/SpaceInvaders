@@ -21,7 +21,7 @@ namespace entity {
     };
 
     /**
-     * Abstract class that represents all living creatures in the game
+     * Abstract class that represents all living and moving creatures in the game
      */
     class Creature : public Entity {
     private:
@@ -33,7 +33,7 @@ namespace entity {
         using Ptr = std::shared_ptr<Creature>;
 
         /**
-         * * create a Creature
+         * create a Creature
          * @param position position of new Creature
          * @param dimension dimension of new Creature
          * @param velocity velocity of new Creature

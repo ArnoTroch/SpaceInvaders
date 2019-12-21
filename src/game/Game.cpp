@@ -30,9 +30,6 @@ Game::Game() {
 void Game::run() {
     Stopwatch::instance();
     Transformation::instance().setWindowSize(view->getWindow().getSize().x, view->getWindow().getSize().y);
-    // this code is copied from the SFML tutorials
-    // https://www.sfml-dev.org/tutorials/2.4/graphics-draw.php
-
     // run the program as long as the window is open
     while (view->getWindow().isOpen()) {
         // check all the window's events that were triggered since the last iteration of the loop

@@ -17,11 +17,10 @@ void GameController::_handlePlayer() {
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
         // set player moving direction to RIGHT
         model->setPlayerDirection(entity::MovingDirection::RIGHT);
-    }
-//    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-//        // shoot
-//    }
-    else {
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        // shoot player bullet, if possible
+        model->setPlayerBullet();
+    } else {
         // set player moving direction to IDLE
         model->setPlayerDirection(entity::MovingDirection::IDLE);
     }
@@ -65,8 +64,8 @@ void GameController::_handleInvaders(double dt) {
 GameController::GameController(GameModel::Ptr model) : model(std::move(model)) {}
 
 void GameController::update(double dt) {
-    _handlePlayer(); // handle user input
-    _handleInvaders(dt); // handle invaders AI
+    _handlePlayer(); // handle user input for player
+    _handleInvaders(dt); // handle AI for invaders
     model->update(dt);
 }
 

@@ -5,7 +5,7 @@
 #ifndef SPACEINVADERS_INVADER_H
 #define SPACEINVADERS_INVADER_H
 
-#include "Creature.h"
+#include "Bullet.h"
 
 namespace entity {
 
@@ -16,6 +16,7 @@ namespace entity {
      */
     class Invader : public Creature {
     private:
+        Bullet::Ptr bullet;
 
     public:
         using Ptr = std::shared_ptr<Invader>;
@@ -30,6 +31,23 @@ namespace entity {
          * default destructor
          */
         ~Invader() override = default;
+
+        /**
+         * get Bullet fired by Invader
+         * @return Bullet fired by Invader
+         */
+        [[nodiscard]] std::weak_ptr<Bullet> getBullet() const;
+
+
+        /**
+         * shoot Bullet if Invader doesn't have an active Bullet yet, or return the active Bullet.
+         */
+        void shoot();
+
+        /**
+         * remove Bullet fired by Invader
+         */
+        void removeBullet();
 
         /**
          * get relative path to resources

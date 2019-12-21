@@ -9,15 +9,38 @@
 // ----------------//
 // private methods
 // ----------------//
-void GameModel::_movePlayer(double dt) {
+void GameModel::_updatePlayer(double dt) {
     player->move(dt);
-}
-
-void GameModel::_moveInvaders(double dt) {
-    for (entity::Invader::Ptr &inv: invaders) {
-        inv->move(dt);
+    // update player bullet
+    if (auto pbullet = player->getBullet().lock()) {
+        if (pbullet->isPossibleMove(dt)) {
+            // check if move is possible, then move bullet
+            pbullet->move(dt);
+        } else {
+            // if move not possible, remove bullet
+            player->removeBullet();
+        }
+        //TODO add collision detection
     }
 }
+
+void GameModel::_updateInvaders(double dt) {
+    for (entity::Invader::Ptr &inv: invaders) {
+        inv->move(dt);
+        // update invader bullet
+        if (auto ibullet = inv->getBullet().lock()) {
+            if (ibullet->isPossibleMove(dt)) {
+                // check if move is possible, then move bullet
+                ibullet->move(dt);
+            } else {
+                // if move not possible, remove bullet
+                player->removeBullet();
+            }
+            //TODO add collision detection
+        }
+    }
+}
+
 
 // ----------------//
 // public methods
@@ -44,6 +67,9 @@ void GameModel::setInvaderDirection(entity::MovingDirection movingDirection) {
     }
 }
 
+void GameModel::setPlayerBullet() {
+    player->shoot();
+}
 
 void GameModel::startGame() {
     player = std::make_shared<entity::Player>(); // make player
@@ -52,12 +78,11 @@ void GameModel::startGame() {
         invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-3.8 + (0.5 * i), 2.4)));
         invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-3.8 + (0.5 * i), 2.0)));
         invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-3.8 + (0.5 * i), 1.6)));
-        //invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-3.8 + (0.5 * i), 1.2)));
     }
 }
 
 void GameModel::update(double dt) {
-    _movePlayer(dt);
-    _moveInvaders(dt);
+    _updatePlayer(dt);
+    _updateInvaders(dt);
     notify();
 }

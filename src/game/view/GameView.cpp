@@ -9,23 +9,13 @@
 // ----------------//
 // private methods
 // ----------------//
-void GameView::_adjustPlayerSprite(sf::Sprite &sprite, const entity::Player::Ptr &player) {
-    // adjust player sprite origin, position and scale
+void GameView::_adjustSprite(sf::Sprite &sprite, const entity::Entity::Ptr &entity) {
+    // adjust sprite origin, position and scale
     sprite.setOrigin(static_cast<float>(sprite.getTexture()->getSize().x) / 2 * sprite.getScale().x,
                      static_cast<float>(sprite.getTexture()->getSize().y) / 2 * sprite.getScale().y);
-    sprite.setPosition(static_cast<float>(player->getPosition().first),
-                       static_cast<float>(player->getPosition().second));
-    Transformation::instance().transform(sprite, player);
-}
-
-void GameView::_adjustInvaderSprite(sf::Sprite &sprite, const entity::Invader::Ptr &invader) {
-    // adjust invader sprite origin, position and scale
-    sprite.setOrigin(static_cast<float>(sprite.getTexture()->getSize().x) / 2 * sprite.getScale().x,
-                     static_cast<float>(sprite.getTexture()->getSize().y) / 2 * sprite.getScale().y);
-    sprite.setPosition(static_cast<float>(invader->getPosition().first),
-                       static_cast<float>(invader->getPosition().second));
-    Transformation::instance().transform(sprite, invader);
-
+    sprite.setPosition(static_cast<float>(entity->getPosition().first),
+                       static_cast<float>(entity->getPosition().second));
+    Transformation::instance().transform(sprite, entity);
 }
 
 // ----------------//
@@ -37,21 +27,32 @@ GameView::GameView(GameModel::Ptr model) :
 }
 
 void GameView::render() {
-    sf::Texture texture;
+    sf::Texture playerTexture, invaderTexture, bulletTexture;
+    playerTexture.loadFromFile(entity::Player().getResourcePath());
+    invaderTexture.loadFromFile(entity::Invader({0, 0}).getResourcePath());
+    bulletTexture.loadFromFile(entity::Bullet({0, 0}, entity::MovingDirection::IDLE).getResourcePath());
     window.clear(sf::Color::Black); // clear the window
-    // create and draw the player sprite
+
+    // create and draw the player and player bullet sprite
     sf::Sprite playerSprite;
-    texture.loadFromFile(model->getPlayer()->getResourcePath());
-    playerSprite.setTexture(texture);
-    _adjustPlayerSprite(playerSprite, model->getPlayer());
+    playerSprite.setTexture(playerTexture);
+    _adjustSprite(playerSprite, model->getPlayer());
     window.draw(playerSprite);
-    // create and draw the invader sprites
+    if (auto bullet = model->getPlayer()->getBullet().lock()) {
+        sf::Sprite bulletSprite;
+        bulletSprite.setTexture(bulletTexture);
+        _adjustSprite(bulletSprite, bullet);
+        window.draw(bulletSprite);
+    }
+
+    // create and draw the invader sprites and the bullet sprites
     for (const entity::Invader::Ptr &inv: model->getInvaders()) {
+        // draw invader
         sf::Sprite invaderSprite;
-        texture.loadFromFile(inv->getResourcePath());
-        invaderSprite.setTexture(texture);
-        _adjustInvaderSprite(invaderSprite, inv);
+        invaderSprite.setTexture(invaderTexture);
+        _adjustSprite(invaderSprite, inv);
         window.draw(invaderSprite);
+        // draw bullets
 
     }
     window.display(); // display the window
