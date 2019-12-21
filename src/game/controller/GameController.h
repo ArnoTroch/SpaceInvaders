@@ -6,6 +6,7 @@
 #define SPACEINVADERS_GAMECONTROLLER_H
 
 #include "../model/GameModel.h"
+#include <random>
 
 /**
  * Class that handles input and updates the game model.
@@ -20,6 +21,17 @@ private:
     void _handlePlayer();
 
     void _handleInvaders(double dt);
+
+    // settings
+    double down_distance;
+
+    entity::MovingDirection next_move_dir;
+
+    double min_shoot_time;
+
+    double max_shoot_time;
+
+    double shoot_time;
 
 public:
     using Ptr = std::shared_ptr<GameController>;

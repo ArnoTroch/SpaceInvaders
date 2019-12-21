@@ -29,9 +29,8 @@ void GameController::_handlePlayer() {
 
 void GameController::_handleInvaders(double dt) {
     // AI for moving invaders
-    static double down_distance = 0;
-    static entity::MovingDirection next_move_dir = entity::MovingDirection::RIGHT;
     for (const entity::Invader::Ptr &inv: model->getInvaders()) {
+        // move invaders
         if (inv->getMovingDirection() == entity::MovingDirection::LEFT ||
             inv->getMovingDirection() == entity::MovingDirection::RIGHT) {
             if (!inv->isPossibleMove(dt)) {
@@ -39,29 +38,43 @@ void GameController::_handleInvaders(double dt) {
                 down_distance = 0;
                 model->setInvaderDirection(entity::MovingDirection::DOWN);
                 // change the next moving direction
-                if (next_move_dir == entity::MovingDirection::LEFT) {
-                    next_move_dir = entity::MovingDirection::RIGHT;
-                } else if (next_move_dir == entity::MovingDirection::RIGHT) {
-                    next_move_dir = entity::MovingDirection::LEFT;
-                }
+                next_move_dir = (next_move_dir == entity::MovingDirection::LEFT ? entity::MovingDirection::RIGHT
+                                                                                : entity::MovingDirection::LEFT);
                 break;
             }
         } else if (inv->getMovingDirection() == entity::MovingDirection::DOWN) {
             down_distance += (inv->getVelocity() * dt);
             if (down_distance >= 0.1) {
-                std::cout << down_distance << std::endl;
                 down_distance = 0;
                 model->setInvaderDirection(next_move_dir);
             }
             break;
         }
+        // shoot random bullets
+        std::random_device random_device;
+        std::mt19937 gen(random_device());
+        std::uniform_real_distribution<double> dist0(min_shoot_time, max_shoot_time);
+        std::uniform_int_distribution<int> dist1(0, 2);
+        std::uniform_int_distribution<int> dist2(0, model->getInvaders().size() - 1);
+        if (shoot_time > dist0(gen)) {
+            shoot_time = 0;
+            int n = dist1(gen);
+            // shoot n times with random invaders
+            for (int i = 0; i < n; ++i) {
+                int k = dist2(gen);
+                model->invaders[k]->shoot();
+            }
+        }
     }
+    shoot_time += dt;
 }
 
 // ----------------//
 // public methods
 // ----------------//
-GameController::GameController(GameModel::Ptr model) : model(std::move(model)) {}
+GameController::GameController(GameModel::Ptr model) : model(std::move(model)), down_distance(0), min_shoot_time(1),
+                                                       max_shoot_time(3), shoot_time(1),
+                                                       next_move_dir(entity::MovingDirection::RIGHT) {}
 
 void GameController::update(double dt) {
     _handlePlayer(); // handle user input for player

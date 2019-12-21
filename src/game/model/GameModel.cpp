@@ -34,7 +34,7 @@ void GameModel::_updateInvaders(double dt) {
                 ibullet->move(dt);
             } else {
                 // if move not possible, remove bullet
-                player->removeBullet();
+                inv->removeBullet();
             }
             //TODO add collision detection
         }

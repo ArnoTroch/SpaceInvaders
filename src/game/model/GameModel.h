@@ -32,6 +32,8 @@ private:
 
     void _updateInvaders(double dt);
 
+    friend class GameController;
+
 public:
     using Ptr = std::shared_ptr<GameModel>;
 

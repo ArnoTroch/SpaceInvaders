@@ -45,7 +45,7 @@ void GameView::render() {
         window.draw(bulletSprite);
     }
 
-    // create and draw the invader sprites and the bullet sprites
+    // create and draw the invader and bullet sprites
     for (const entity::Invader::Ptr &inv: model->getInvaders()) {
         // draw invader
         sf::Sprite invaderSprite;
@@ -53,7 +53,12 @@ void GameView::render() {
         _adjustSprite(invaderSprite, inv);
         window.draw(invaderSprite);
         // draw bullets
-
+        if (auto bullet = inv->getBullet().lock()) {
+            sf::Sprite bulletSprite;
+            bulletSprite.setTexture(bulletTexture);
+            _adjustSprite(bulletSprite, bullet);
+            window.draw(bulletSprite);
+        }
     }
     window.display(); // display the window
 }
