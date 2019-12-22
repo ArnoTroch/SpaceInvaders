@@ -4,7 +4,7 @@
 
 #include "Player.h"
 
-entity::Player::Player() : Creature({0, 0}, {0.4, 0.3}, 2.5), bullet(nullptr) {
+entity::Player::Player() : Creature({0, 0}, {0.4, 0.3}, 3, 2.5), bullet(nullptr) {
     setPosition({0, -3 + (getDimension().second / 2)});
 }
 
@@ -25,6 +25,6 @@ void entity::Player::removeBullet() {
 }
 
 std::string entity::Player::getResourcePath() {
-    return RESOURCES_DIR + "player.png";
+    return entity::getResourcesDir() + "player.png";
 }
 

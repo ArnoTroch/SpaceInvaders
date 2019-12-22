@@ -7,11 +7,11 @@
 // ----------------//
 // private methods
 // ----------------//
-void Game::_update() {
+void game::Game::_update() {
     controller->update(dt);
 }
 
-void Game::_updateDt() {
+void game::Game::_updateDt() {
     dt = Stopwatch::instance().restart();
 }
 
@@ -19,7 +19,7 @@ void Game::_updateDt() {
 // ----------------//
 // public methods
 // ----------------//
-Game::Game() {
+game::Game::Game() {
     model = std::make_shared<GameModel>();
     view = std::make_shared<GameView>(model);
     model->addObserver(view);
@@ -27,7 +27,7 @@ Game::Game() {
     dt = 0.0;
 }
 
-void Game::run() {
+void game::Game::run() {
     Stopwatch::instance();
     Transformation::instance().setWindowSize(view->getWindow().getSize().x, view->getWindow().getSize().y);
     // run the program as long as the window is open

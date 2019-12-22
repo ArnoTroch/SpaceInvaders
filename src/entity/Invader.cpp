@@ -4,7 +4,7 @@
 
 #include "Invader.h"
 
-entity::Invader::Invader(const Position &position) : Creature(position, {0.4, 0.3}, 0.5) {
+entity::Invader::Invader(const Position &position) : Creature(position, {0.4, 0.3}, 1, 0.5) {
     setMovingDirection(MovingDirection::RIGHT);
 }
 
@@ -25,6 +25,6 @@ void entity::Invader::removeBullet() {
 }
 
 std::string entity::Invader::getResourcePath() {
-    return RESOURCES_DIR + "invader.png";
+    return entity::getResourcesDir() + "invader.png";
 }
 

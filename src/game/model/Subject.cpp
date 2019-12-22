@@ -4,15 +4,15 @@
 
 #include "Subject.h"
 
-const std::vector<Observer::Ptr> &Subject::getObservers() const {
+const std::vector<game::Observer::Ptr> &game::Subject::getObservers() const {
     return observers;
 }
 
-void Subject::addObserver(const Observer::Ptr &observer) {
+void game::Subject::addObserver(const Observer::Ptr &observer) {
     observers.push_back(observer);
 }
 
-void Subject::removeObserver(const Observer::Ptr &observer) {
+void game::Subject::removeObserver(const Observer::Ptr &observer) {
     for (unsigned long i = 0; i < observers.size(); ++i) {
         if (observers[i] == observer) {
             observers.erase(observers.begin() + i);
@@ -21,7 +21,7 @@ void Subject::removeObserver(const Observer::Ptr &observer) {
     }
 }
 
-void Subject::notify() const {
+void game::Subject::notify() const {
     for (const Observer::Ptr &obs: observers) {
         obs->onNotify();
     }

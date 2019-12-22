@@ -9,7 +9,7 @@
 // ----------------//
 // private methods
 // ----------------//
-void GameController::_handlePlayer() {
+void game::GameController::_handlePlayer() {
     // check for any useful keyboard input
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
         // set player moving direction to LEFT
@@ -19,7 +19,7 @@ void GameController::_handlePlayer() {
         model->setPlayerDirection(entity::MovingDirection::RIGHT);
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
         // shoot player bullet, if possible
-        model->setPlayerBullet();
+        model->player->shoot();
     } else {
         // set player moving direction to IDLE
         model->setPlayerDirection(entity::MovingDirection::IDLE);
@@ -27,7 +27,7 @@ void GameController::_handlePlayer() {
 }
 
 
-void GameController::_handleInvaders(double dt) {
+void game::GameController::_handleInvaders(double dt) {
     // AI for moving invaders
     for (const entity::Invader::Ptr &inv: model->getInvaders()) {
         // move invaders
@@ -55,7 +55,7 @@ void GameController::_handleInvaders(double dt) {
         std::mt19937 gen(random_device());
         std::uniform_real_distribution<double> dist0(min_shoot_time, max_shoot_time);
         std::uniform_int_distribution<int> dist1(0, 2);
-        std::uniform_int_distribution<int> dist2(0, model->getInvaders().size() - 1);
+        std::uniform_int_distribution<int> dist2(0, static_cast<int>(model->getInvaders().size() - 1));
         if (shoot_time > dist0(gen)) {
             shoot_time = 0;
             int n = dist1(gen);
@@ -72,11 +72,12 @@ void GameController::_handleInvaders(double dt) {
 // ----------------//
 // public methods
 // ----------------//
-GameController::GameController(GameModel::Ptr model) : model(std::move(model)), down_distance(0), min_shoot_time(1),
-                                                       max_shoot_time(3), shoot_time(1),
-                                                       next_move_dir(entity::MovingDirection::RIGHT) {}
+game::GameController::GameController(GameModel::Ptr model) : model(std::move(model)), down_distance(0),
+                                                             min_shoot_time(1),
+                                                             max_shoot_time(3), shoot_time(1),
+                                                             next_move_dir(entity::MovingDirection::RIGHT) {}
 
-void GameController::update(double dt) {
+void game::GameController::update(double dt) {
     _handlePlayer(); // handle user input for player
     _handleInvaders(dt); // handle AI for invaders
     model->update(dt);

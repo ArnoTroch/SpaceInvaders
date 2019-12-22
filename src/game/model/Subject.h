@@ -9,53 +9,55 @@
 #include <vector>
 #include <memory>
 
-/**
- * Class used in "Observer pattern"
- *
- * This class is used for implementing the "Observer pattern". Any concrete classes inheriting from this
- * class will become a subject, which will be observed by one or more observers (classes inheriting from
- * the Object class). A subject sends notifications to all of its observers when something interesting
- * happens.
- */
-class Subject {
-protected:
-    std::vector<Observer::Ptr> observers;
-
-public:
+namespace game {
     /**
-     * create a Subject
+     * Class used in "Observer pattern"
+     *
+     * This class is used for implementing the "Observer pattern". Any concrete classes inheriting from this
+     * class will become a subject, which will be observed by one or more observers (classes inheriting from
+     * the Object class). A subject sends notifications to all of its observers when something interesting
+     * happens.
      */
-    Subject() = default;
+    class Subject {
+    protected:
+        std::vector<Observer::Ptr> observers;
 
-    /**
-     * default destructor
-     */
-    ~Subject() = default;
+    public:
+        /**
+         * create a Subject
+         */
+        Subject() = default;
 
-    /**
-     * get observers
-     * @return observers of Subject
-     */
-    [[nodiscard]] const std::vector<Observer::Ptr> &getObservers() const;
+        /**
+         * default destructor
+         */
+        ~Subject() = default;
 
-    /**
-     * add new Observer
-     * @param observer new observer for Subject
-     */
-    void addObserver(const Observer::Ptr &observer);
+        /**
+         * get observers
+         * @return observers of Subject
+         */
+        [[nodiscard]] const std::vector<Observer::Ptr> &getObservers() const;
 
-    /**
-     * remove certain Observer
-     * @param observer observer to be removed for Subject
-     */
-    void removeObserver(const Observer::Ptr &observer);
+        /**
+         * add new Observer
+         * @param observer new observer for Subject
+         */
+        void addObserver(const Observer::Ptr &observer);
 
-    /**
-     * notify the observers when something interesting happens
-     */
-    virtual void notify() const;
+        /**
+         * remove certain Observer
+         * @param observer observer to be removed for Subject
+         */
+        void removeObserver(const Observer::Ptr &observer);
 
-};
+        /**
+         * notify the observers when something interesting happens
+         */
+        virtual void notify() const;
+
+    };
+}
 
 
 #endif //SPACEINVADERS_SUBJECT_H

@@ -8,18 +8,19 @@
 #include <memory>
 #include <string>
 
-#define RESOURCES_DIR std::string("../resources/") // relative path to resources directory
-
 /**
  * This namespace contains everything that is linked to game entities.
  */
 namespace entity {
     // maximum value of the x and y coordinates of an entity
-    static const int MAX_X = 4, MAX_Y = 3;
+    const int MAX_X = 4, MAX_Y = 3;
 
     using Position = std::pair<double, double>;
 
     using Dimension = std::pair<double, double>;
+
+    // relative path to resources directory
+    std::string getResourcesDir();
 
     /**
      * Abstract base class that every object in the game derives from.
@@ -30,6 +31,8 @@ namespace entity {
 
         Dimension dimension;
 
+        int health;
+
     public:
         using Ptr = std::shared_ptr<Entity>; // simplify commonly used type
 
@@ -37,8 +40,9 @@ namespace entity {
          * create an Entity
          * @param position position of new Entity
          * @param dimension dimension of new Entity
+         * @param health health of new Entity
          */
-        Entity(Position position, Dimension dimension);
+        Entity(Position position, Dimension dimension, int health);
 
         /**
          * default destructor
@@ -62,6 +66,17 @@ namespace entity {
          * @return dimension of Entity
          */
         [[nodiscard]] const Dimension &getDimension() const;
+
+        /**
+         * reduce health by one
+         */
+        void hit();
+
+        /**
+         * check if Entity has health left
+         * @return true if health > 0, false otherwise
+         */
+        bool alive();
 
         /**
          * get relative path containing textures for displaying an Entity

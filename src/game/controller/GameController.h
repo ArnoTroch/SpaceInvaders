@@ -8,52 +8,54 @@
 #include "../model/GameModel.h"
 #include <random>
 
-/**
- * Class that handles input and updates the game model.
- *
- * The GameController class is a part of the MVC design pattern. Its goal is to process the user's
- * keyboard input and tell the GameModel how to change its data (according to the keyboard input).
- */
-class GameController {
-private:
-    GameModel::Ptr model; // model being handled by controller
-
-    void _handlePlayer();
-
-    void _handleInvaders(double dt);
-
-    // settings
-    double down_distance;
-
-    entity::MovingDirection next_move_dir;
-
-    double min_shoot_time;
-
-    double max_shoot_time;
-
-    double shoot_time;
-
-public:
-    using Ptr = std::shared_ptr<GameController>;
-
+namespace game {
     /**
-     * create a GameController that handles a specific model
-     * @param model model to be handled by new GameController
+     * Class that handles input and updates the game model.
+     *
+     * The GameController class is a part of the MVC design pattern. Its goal is to process the user's
+     * keyboard input and tell the GameModel how to change its data (according to the keyboard input).
      */
-    explicit GameController(GameModel::Ptr model);
+    class GameController {
+    private:
+        GameModel::Ptr model; // model being handled by controller
 
-    /**
-     *  default destructor
-     */
-    virtual ~GameController() = default;
+        void _handlePlayer();
 
-    /**
-     * handle input and update the game model accordingly
-     * @param dt delta time
-     */
-    void update(double dt);
+        void _handleInvaders(double dt);
 
-};
+        // settings
+        double down_distance;
+
+        entity::MovingDirection next_move_dir;
+
+        double min_shoot_time;
+
+        double max_shoot_time;
+
+        double shoot_time;
+
+    public:
+        using Ptr = std::__1::shared_ptr<GameController>;
+
+        /**
+         * create a GameController that handles a specific model
+         * @param model model to be handled by new GameController
+         */
+        explicit GameController(GameModel::Ptr model);
+
+        /**
+         *  default destructor
+         */
+        virtual ~GameController() = default;
+
+        /**
+         * handle input and update the game model accordingly
+         * @param dt delta time
+         */
+        void update(double dt);
+
+    };
+}
 
 
 #endif //SPACEINVADERS_GAMECONTROLLER_H

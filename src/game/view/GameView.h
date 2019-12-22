@@ -10,54 +10,56 @@
 #include "../Transformation.h"
 #include <SFML/Graphics.hpp>
 
-/**
- * Class used to graphically represent the current state of the game.
- *
- * The GameView class represents the current state of a certain GameModel object using the
- * SFML library. It draws all the entities from the model on the screen.
- * The GameView class inherits from the Observer class, as it has to observe the GameModel
- * it is representing.
- */
-class GameView : public Observer {
-private:
-    GameModel::Ptr model;
-
-    sf::RenderWindow window;
-
-    // adjust sprite origin, position and scale
-    static void _adjustSprite(sf::Sprite &sprite, const entity::Entity::Ptr &entity);
-
-public:
-    using Ptr = std::shared_ptr<GameView>;
-
+namespace game {
     /**
-     * create a GameView
-     * @param model GameModel being observed by new GameView
+     * Class used to graphically represent the current state of the game.
+     *
+     * The GameView class represents the current state of a certain GameModel object using the
+     * SFML library. It draws all the entities from the model on the screen.
+     * The GameView class inherits from the Observer class, as it has to observe the GameModel
+     * it is representing.
      */
-    explicit GameView(GameModel::Ptr model);
+    class GameView : public Observer {
+    private:
+        GameModel::Ptr model;
 
-    /**
-     * default destructor
-     */
-    ~GameView() override = default;
+        sf::RenderWindow window;
 
-    /**
-     * get SFML RenderWindow
-     * @return SFML RenderWindow of GameView
-     */
-    sf::RenderWindow &getWindow();
+        // adjust sprite origin, position and scale
+        static void _adjustSprite(sf::Sprite &sprite, const entity::Entity::Ptr &entity);
 
-    /**
-     * render the current state of the observed GameModel object
-     */
-    void render();
+    public:
+        using Ptr = std::shared_ptr<GameView>;
 
-    /**
-     * call necessary methods to change GameView when notified by GameModel
-     */
-    void onNotify() override;
+        /**
+         * create a GameView
+         * @param model GameModel being observed by new GameView
+         */
+        explicit GameView(GameModel::Ptr model);
 
-};
+        /**
+         * default destructor
+         */
+        ~GameView() override = default;
+
+        /**
+         * get SFML RenderWindow
+         * @return SFML RenderWindow of GameView
+         */
+        sf::RenderWindow &getWindow();
+
+        /**
+         * render the current state of the observed GameModel object
+         */
+        void render();
+
+        /**
+         * call necessary methods to change GameView when notified by GameModel
+         */
+        void onNotify() override;
+
+    };
+}
 
 
 #endif //SPACEINVADERS_GAMEVIEW_H

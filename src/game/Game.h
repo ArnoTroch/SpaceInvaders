@@ -11,40 +11,44 @@
 #include "Stopwatch.h"
 #include <iostream>
 
-#define RESOURCES_DIR std::string("../resources/") // relative path to where resources are stored.
-
 /**
- * Main class that combines the different parts of the game.
- *
- * The Game class contains the game model, view and controller, which are constructed when calling the
- * Game constructor.
+ * Namespace that contains everything that is related to the actual gameplay, like the game controller, the game model
+ * and the graphics.
  */
-class Game {
-private:
-    GameView::Ptr view;
-
-    GameModel::Ptr model;
-
-    GameController::Ptr controller;
-
-    double dt;
-
-    void _update();
-
-    void _updateDt();
-
-public:
+namespace game {
     /**
-     * create a Game
+     * Main class that combines the different parts of the game.
+     *
+     * The Game class contains the game model, view and controller, which are constructed when calling the
+     * Game constructor.
      */
-    Game();
+    class Game {
+    private:
+        GameView::Ptr view;
 
-    /**
-     * run the game
-     */
-    void run();
+        GameModel::Ptr model;
 
-};
+        GameController::Ptr controller;
+
+        double dt;
+
+        void _update();
+
+        void _updateDt();
+
+    public:
+        /**
+         * create a Game
+         */
+        Game();
+
+        /**
+         * run the game
+         */
+        void run();
+
+    };
+}
 
 
 #endif //SPACEINVADERS_GAME_H

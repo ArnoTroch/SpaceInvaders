@@ -8,31 +8,33 @@
 #include <memory>
 #include "../../entity/Entity.h"
 
-/**
- * Abstract class used in "Observer pattern"
- *
- * This class is used for implementing the "Observer pattern". Any concrete classes inheriting from
- * this class will become an observer. It will observe an object inheriting from the Subject class.
- */
-class Observer {
-public:
-    using Ptr = std::shared_ptr<Observer>;
-
+namespace game {
     /**
-     * create an Observer
+     * Abstract class used in "Observer pattern"
+     *
+     * This class is used for implementing the "Observer pattern". Any concrete classes inheriting from
+     * this class will become an observer. It will observe an object inheriting from the Subject class.
      */
-    Observer() = default;
+    class Observer {
+    public:
+        using Ptr = std::shared_ptr<Observer>;
 
-    /**
-     * Default destructor
-     */
-    virtual ~Observer() = default;
+        /**
+         * create an Observer
+         */
+        Observer() = default;
 
-    /**
-     * Handle events when right notification is invoked by Subject.
-     */
-    virtual void onNotify() = 0;
-};
+        /**
+         * Default destructor
+         */
+        virtual ~Observer() = default;
+
+        /**
+         * Handle events when right notification is invoked by Subject.
+         */
+        virtual void onNotify() = 0;
+    };
+}
 
 
 #endif //SPACEINVADERS_OBSERVER_H

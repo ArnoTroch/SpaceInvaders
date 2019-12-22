@@ -6,8 +6,12 @@
 
 #include <utility>
 
-entity::Entity::Entity(entity::Position position, entity::Dimension dimension) : position(std::move(position)),
-                                                                                 dimension(std::move(dimension)) {}
+std::string entity::getResourcesDir() {
+    return "../resources/";
+}
+
+entity::Entity::Entity(entity::Position position, entity::Dimension dimension, int health) :
+        position(std::move(position)), dimension(std::move(dimension)), health(health) {}
 
 
 const entity::Position &entity::Entity::getPosition() const {
@@ -22,3 +26,12 @@ const entity::Dimension &entity::Entity::getDimension() const {
     return dimension;
 }
 
+void entity::Entity::hit() {
+    if (health > 0) {
+        --health;
+    }
+}
+
+bool entity::Entity::alive() {
+    return health != 0;
+}

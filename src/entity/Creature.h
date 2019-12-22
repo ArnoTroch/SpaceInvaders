@@ -38,7 +38,7 @@ namespace entity {
          * @param dimension dimension of new Creature
          * @param velocity velocity of new Creature
          */
-        Creature(const Position &position, const Dimension &dimension, double velocity);
+        Creature(const Position &position, const Dimension &dimension, int health, double velocity);
 
         /**
          * default destructor
