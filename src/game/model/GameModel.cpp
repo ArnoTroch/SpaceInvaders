@@ -100,8 +100,7 @@ void game::GameModel::_checkInvaderCollision() {
 // ----------------//
 // public methods
 // ----------------//
-game::GameModel::GameModel() {
-    startGame();
+game::GameModel::GameModel() : state(game::GameModel::State::TITLE_SCREEN) {
 }
 
 const entity::Player::Ptr &game::GameModel::getPlayer() const {
@@ -110,6 +109,14 @@ const entity::Player::Ptr &game::GameModel::getPlayer() const {
 
 const std::vector<entity::Invader::Ptr> &game::GameModel::getInvaders() const {
     return invaders;
+}
+
+game::GameModel::State game::GameModel::getState() const {
+    return state;
+}
+
+void game::GameModel::setState(game::GameModel::State s) {
+    GameModel::state = s;
 }
 
 void game::GameModel::setPlayerDirection(entity::MovingDirection movingDirection) {
@@ -133,10 +140,17 @@ void game::GameModel::startGame() {
 }
 
 void game::GameModel::update(double dt) {
-    _updatePlayer(dt);
-    _checkPlayerCollision();
-    _updateInvaders(dt);
-    _checkInvaderCollision();
+    switch (state) {
+        case State::TITLE_SCREEN:
+            break;
+        case State::GAME_RUNNING:
+            _updatePlayer(dt);
+            _checkPlayerCollision();
+            _updateInvaders(dt);
+            _checkInvaderCollision();
+            break;
+        case State::GAME_OVER:
+            break;
+    }
     notify();
 }
-

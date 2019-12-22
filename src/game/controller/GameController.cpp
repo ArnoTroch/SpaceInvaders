@@ -9,6 +9,13 @@
 // ----------------//
 // private methods
 // ----------------//
+void game::GameController::_handleTitleScreen() {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        model->setState(GameModel::State::GAME_RUNNING);
+        model->startGame();
+    }
+}
+
 void game::GameController::_handlePlayer() {
     // check for any useful keyboard input
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
@@ -78,8 +85,17 @@ game::GameController::GameController(GameModel::Ptr model) : model(std::move(mod
                                                              next_move_dir(entity::MovingDirection::RIGHT) {}
 
 void game::GameController::update(double dt) {
-    _handlePlayer(); // handle user input for player
-    _handleInvaders(dt); // handle AI for invaders
+    switch (model->getState()) {
+        case GameModel::State::TITLE_SCREEN:
+            _handleTitleScreen();
+            break;
+        case GameModel::State::GAME_RUNNING:
+            _handlePlayer(); // handle user input for player
+            _handleInvaders(dt); // handle AI for invaders
+            break;
+        case GameModel::State::GAME_OVER:
+            break;
+    }
     model->update(dt);
 }
 

@@ -21,9 +21,9 @@ void game::Game::_updateDt() {
 // ----------------//
 game::Game::Game() {
     model = std::make_shared<GameModel>();
+    controller = std::make_shared<GameController>(model);
     view = std::make_shared<GameView>(model);
     model->addObserver(view);
-    controller = std::make_shared<GameController>(model);
     dt = 0.0;
 }
 

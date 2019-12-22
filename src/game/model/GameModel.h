@@ -22,12 +22,27 @@ namespace game {
      * The GameModel class inherits from the Subject class, as it has to be observed by a GameView object.
      */
     class GameModel : public Subject {
+    public:
+        /**
+         * Enum for keeping track of GameModel state.
+         *
+         * The state of the game will decide which input the GameController should check, how the GameModel
+         * changes and what the GameView will display.
+         */
+        enum class State {
+            TITLE_SCREEN,
+            GAME_RUNNING,
+            GAME_OVER
+        };
+
     private:
         entity::Player::Ptr player; // player
 
         std::vector<entity::Invader::Ptr> invaders; // enemies
 
         // std::vector<entity::Shield::Ptr> shields; // shields
+
+        State state; // game state
 
         void _updatePlayer(double dt);
 
@@ -63,6 +78,18 @@ namespace game {
          * @return invaders of GameModel
          */
         [[nodiscard]] const std::vector<entity::Invader::Ptr> &getInvaders() const;
+
+        /**
+         * get game state
+         * @return game state of GameModel
+         */
+        [[nodiscard]] State getState() const;
+
+        /**
+         * set game state
+         * @param state new game state of GameModel
+         */
+        void setState(State state);
 
         /**
          * set new moving direction for player

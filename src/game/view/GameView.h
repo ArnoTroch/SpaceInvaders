@@ -25,6 +25,12 @@ namespace game {
 
         sf::RenderWindow window;
 
+        void _renderTitleScreen();
+
+        void _renderGameplay();
+
+        void _renderGameOver();
+
         // adjust sprite origin, position and scale
         static void _adjustSprite(sf::Sprite &sprite, const entity::Entity::Ptr &entity);
 

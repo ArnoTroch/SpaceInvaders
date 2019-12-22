@@ -19,6 +19,8 @@ namespace game {
     private:
         GameModel::Ptr model; // model being handled by controller
 
+        void _handleTitleScreen();
+
         void _handlePlayer();
 
         void _handleInvaders(double dt);
