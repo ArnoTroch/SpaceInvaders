@@ -22,7 +22,7 @@ class Transformation {
 private:
     Transformation();
 
-    double windowX{}, windowY{};
+    float windowX{}, windowY{};
 public:
     /**
      * default destructor
@@ -35,12 +35,18 @@ public:
     static Transformation &instance();
 
     /**
+     * get current window size
+     * @return current window size
+     */
+    std::pair<float, float> getWindowSize();
+
+    /**
      * set current window size. These values will be used for transforming entity positions from the
      * game model to the window size.
      * @param x window size of x axis
      * @param y window size of y axis
      */
-    void setWindowSize(double x, double y);
+    void setWindowSize(float x, float y);
 
     /**
      * transform Sprite representing an Entity to fit on the GameView window

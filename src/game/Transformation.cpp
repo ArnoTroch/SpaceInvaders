@@ -11,9 +11,13 @@ Transformation &Transformation::instance() {
     return *sw;
 }
 
-void Transformation::setWindowSize(double x, double y) {
+void Transformation::setWindowSize(float x, float y) {
     windowX = x;
     windowY = y;
+}
+
+std::pair<float, float> Transformation::getWindowSize() {
+    return {windowX, windowY};
 }
 
 void Transformation::transform(sf::Sprite &sprite, const entity::Entity::Ptr &entity) {

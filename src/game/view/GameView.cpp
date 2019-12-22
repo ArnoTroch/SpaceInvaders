@@ -24,33 +24,35 @@ void game::GameView::_renderTitleScreen() {
     sf::Texture bg;
     bg.loadFromFile("../resources/titlescreen.png");
     sf::Sprite background(bg);
-    background.setScale(static_cast<float>(window.getSize().x) / bg.getSize().x,
-                        static_cast<float>(window.getSize().y) / bg.getSize().y);
+    background.setScale(Transformation::instance().getWindowSize().first / bg.getSize().x,
+                        Transformation::instance().getWindowSize().second / bg.getSize().y);
     window.draw(background);
     // load font
     sf::Font font;
     font.loadFromFile("../resources/aircruiserlight.ttf");
     // make and draw title
-    sf::Text title("Space Invaders", font, window.getSize().x / 12);
-    title.setPosition((window.getSize().x - title.getLocalBounds().width) / 2,
-                      (window.getSize().y - title.getLocalBounds().height) / 3);
+    sf::Text title("Space Invaders", font,
+                   static_cast<unsigned int>(Transformation::instance().getWindowSize().first / 12));
+    title.setPosition((Transformation::instance().getWindowSize().first - title.getLocalBounds().width) / 2,
+                      (Transformation::instance().getWindowSize().second - title.getLocalBounds().height) / 3);
     window.draw(title);
     // make and draw instructions
-    sf::Text text("Press space to start", font, window.getSize().x / 40);
-    text.setPosition((window.getSize().x - text.getLocalBounds().width) / 2,
-                     (window.getSize().y - title.getLocalBounds().height - 10));
+    sf::Text text("Press space to start", font,
+                  static_cast<unsigned int>(Transformation::instance().getWindowSize().first / 40));
+    text.setPosition((Transformation::instance().getWindowSize().first - text.getLocalBounds().width) / 2,
+                     (Transformation::instance().getWindowSize().second - title.getLocalBounds().height - 10));
     window.draw(text);
     window.display();
 }
 
 void game::GameView::_renderGameplay() {
-    window.clear(sf::Color::Black); // clear the window
+    window.clear(sf::Color::White); // clear the window
     // set background image
     sf::Texture bg;
     bg.loadFromFile("../resources/gamescreen.png");
     sf::Sprite background(bg);
-    background.setScale(static_cast<float>(window.getSize().x) / bg.getSize().x,
-                        static_cast<float>(window.getSize().y) / bg.getSize().y);
+    background.setScale(Transformation::instance().getWindowSize().first / bg.getSize().x,
+                        Transformation::instance().getWindowSize().second / bg.getSize().y);
     window.draw(background);
     sf::Texture playerTexture, invaderTexture, bulletTexture;
     playerTexture.loadFromFile(entity::Player().getResourcePath());
