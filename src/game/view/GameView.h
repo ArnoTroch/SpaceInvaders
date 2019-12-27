@@ -7,8 +7,8 @@
 
 #include "Observer.h"
 #include "../model/GameModel.h"
-#include "../Transformation.h"
-#include <SFML/Graphics.hpp>
+#include "../utils/Transformation.h"
+#include "../utils/ResourceLibrary.h"
 
 namespace game {
     /**
@@ -25,14 +25,20 @@ namespace game {
 
         sf::RenderWindow window;
 
+        utils::ResourceLibrary resources;
+
+        // adjust sprite origin, position and scale to fit the RenderWindow
+        static void _adjustSprite(sf::Sprite &sprite, const entity::Entity::Ptr &entity);
+
+        void _drawBackground(const std::string &path);
+
+        void _drawSprite(const entity::Entity::Ptr &entity);
+
         void _renderTitleScreen();
 
         void _renderGameplay();
 
         void _renderGameOver();
-
-        // adjust sprite origin, position and scale
-        static void _adjustSprite(sf::Sprite &sprite, const entity::Entity::Ptr &entity);
 
     public:
         using Ptr = std::shared_ptr<GameView>;

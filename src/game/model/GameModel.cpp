@@ -10,6 +10,7 @@
 // private methods
 // ----------------//
 void game::GameModel::_updatePlayer(double dt) {
+    // move player with current velocity and direction
     player->move(dt);
     // update player bullet
     if (auto bullet = player->getBullet().lock()) {
@@ -22,31 +23,46 @@ void game::GameModel::_updatePlayer(double dt) {
             player->removeBullet();
         }
     }
+    // check player collision
+    _checkPlayerCollision();
+    // if player has no lives, game is over
+    if (!player->alive()) {
+        state = State::GAME_OVER;
+    }
 }
 
 void game::GameModel::_updateInvaders(double dt) {
     std::vector<int> invaders_to_delete;
-    for (int i = 0; i < invaders.size(); ++i) {
-        if (invaders[i]->alive()) {
-            invaders[i]->move(dt);
-            // update invader bullet
-            if (auto bullet = invaders[i]->getBullet().lock()) {
-                if (bullet->isPossibleMove(dt) && bullet->alive()) {
-                    // check if move is possible and if bullet didn't hit anything,
-                    // then move bullet
-                    bullet->move(dt);
-                } else {
-                    // if move not possible or bullet hit something, remove bullet
-                    invaders[i]->removeBullet();
-                }
+    for (entity::Invader::Ptr &inv: invaders) {
+        // move every invader with current velocity and direction
+        inv->move(dt);
+        // update invader bullet, if it exists
+        if (auto bullet = inv->getBullet().lock()) {
+            if (bullet->isPossibleMove(dt) && bullet->alive()) {
+                // check if move is possible and if bullet didn't hit anything,
+                // then move bullet
+                bullet->move(dt);
+            } else {
+                // if move not possible or bullet hit something, remove bullet
+                inv->removeBullet();
             }
-        } else {
-            // if invader is dead, add index to invaders_to_delete
-            invaders_to_delete.push_back(i);
         }
     }
-    for (int k: invaders_to_delete) {
-        invaders.erase(invaders.begin() + k);
+    // check invaders collision
+    _checkInvaderCollision();
+    // remove invaders that died
+    auto inv = invaders.begin();
+    while (inv != invaders.end()) {
+        if (!(*inv)->alive()) {
+            inv = invaders.erase(inv);
+        } else {
+            ++inv;
+        }
+    }
+    // if there are no invaders left, game is over
+    if (invaders.empty()) {
+        setState(State::GAME_OVER);
+        return;
     }
 }
 
@@ -100,8 +116,7 @@ void game::GameModel::_checkInvaderCollision() {
 // ----------------//
 // public methods
 // ----------------//
-game::GameModel::GameModel() : state(game::GameModel::State::TITLE_SCREEN) {
-}
+game::GameModel::GameModel() : state(State::TITLE_SCREEN) {}
 
 const entity::Player::Ptr &game::GameModel::getPlayer() const {
     return player;
@@ -142,15 +157,14 @@ void game::GameModel::startGame() {
 void game::GameModel::update(double dt) {
     switch (state) {
         case State::TITLE_SCREEN:
+            notify();
             break;
         case State::GAME_RUNNING:
             _updatePlayer(dt);
-            _checkPlayerCollision();
             _updateInvaders(dt);
-            _checkInvaderCollision();
+            notify();
             break;
         case State::GAME_OVER:
             break;
     }
-    notify();
 }

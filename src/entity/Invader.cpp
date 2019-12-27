@@ -25,6 +25,6 @@ void entity::Invader::removeBullet() {
 }
 
 std::string entity::Invader::getResourcePath() {
-    return entity::getResourcesDir() + "invader.png";
+    return entity::getResourcesDir() + "entities/invader.png";
 }
 

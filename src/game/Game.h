@@ -8,7 +8,7 @@
 #include "view/GameView.h"
 #include "model/GameModel.h"
 #include "controller/GameController.h"
-#include "Stopwatch.h"
+#include "utils/Stopwatch.h"
 #include <iostream>
 
 /**

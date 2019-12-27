@@ -7,7 +7,7 @@
 
 #include <memory>
 #include <SFML/Graphics.hpp>
-#include "../entity/Entity.h"
+#include "../../entity/Entity.h"
 
 /**
  * Class used to transform entity positions in GameModel to positions for the GameView.

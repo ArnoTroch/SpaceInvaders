@@ -18,85 +18,124 @@ void game::GameView::_adjustSprite(sf::Sprite &sprite, const entity::Entity::Ptr
     Transformation::instance().transform(sprite, entity);
 }
 
+void game::GameView::_drawBackground(const std::string &path) {
+    utils::ResourceLibrary::Texture_Ptr bg;
+    try {
+        bg = resources.getTexture(path);
+    } catch (exception::TextureException &e) {
+        std::cerr << e.what() << std::endl;
+        return;
+    }
+    sf::Sprite background(*bg);
+    background.setScale(Transformation::instance().getWindowSize().first / bg->getSize().x,
+                        Transformation::instance().getWindowSize().second / bg->getSize().y);
+    window.draw(background);
+}
+
+void game::GameView::_drawSprite(const entity::Entity::Ptr &entity) {
+    sf::Sprite sprite;
+    utils::ResourceLibrary::Texture_Ptr texture = std::make_shared<sf::Texture>();
+    try {
+        texture = resources.getTexture(entity->getResourcePath());
+    } catch (exception::TextureException &e) {
+        // if texture cannot be loaded, an sf::Image is made and saved in the resources class
+        std::cerr << e.what() << std::endl;
+        sf::Image img;
+        if (auto player_ptr = std::dynamic_pointer_cast<entity::Player>(entity)) {
+            img.create(10, 10, sf::Color::Green);
+        } else {
+            img.create(10, 10, sf::Color::White);
+        }
+        texture->loadFromImage(img);
+        resources.setTexture(entity->getResourcePath(), texture);
+    }
+    sprite.setTexture(*texture);
+    _adjustSprite(sprite, entity);
+    window.draw(sprite);
+}
+
 void game::GameView::_renderTitleScreen() {
     window.clear(sf::Color(30, 30, 30));
     // set background image
-    sf::Texture bg;
-    bg.loadFromFile("../resources/titlescreen.png");
-    sf::Sprite background(bg);
-    background.setScale(Transformation::instance().getWindowSize().first / bg.getSize().x,
-                        Transformation::instance().getWindowSize().second / bg.getSize().y);
-    window.draw(background);
+    _drawBackground("../resources/backgrounds/titlescreen.png");
     // load font
-    sf::Font font;
-    font.loadFromFile("../resources/aircruiserlight.ttf");
-    // make and draw title
-    sf::Text title("Space Invaders", font,
-                   static_cast<unsigned int>(Transformation::instance().getWindowSize().first / 12));
-    title.setPosition((Transformation::instance().getWindowSize().first - title.getLocalBounds().width) / 2,
-                      (Transformation::instance().getWindowSize().second - title.getLocalBounds().height) / 3);
-    window.draw(title);
-    // make and draw instructions
-    sf::Text text("Press space to start", font,
-                  static_cast<unsigned int>(Transformation::instance().getWindowSize().first / 40));
-    text.setPosition((Transformation::instance().getWindowSize().first - text.getLocalBounds().width) / 2,
-                     (Transformation::instance().getWindowSize().second - title.getLocalBounds().height - 10));
-    window.draw(text);
-    window.display();
+    try {
+        utils::ResourceLibrary::Font_Ptr font;
+        font = resources.getFont("../resources/fonts/aircruiserlight.ttf");
+        // make and draw title
+        sf::Text title("Space Invaders", *font,
+                       static_cast<unsigned int>(Transformation::instance().getWindowSize().first / 12));
+        title.setPosition((Transformation::instance().getWindowSize().first - title.getLocalBounds().width) / 2,
+                          (Transformation::instance().getWindowSize().second - title.getLocalBounds().height) / 3);
+        window.draw(title);
+        // make and draw instructions
+        sf::Text text("Press space to start", *font,
+                      static_cast<unsigned int>(Transformation::instance().getWindowSize().first / 40));
+        text.setPosition((Transformation::instance().getWindowSize().first - text.getLocalBounds().width) / 2,
+                         (Transformation::instance().getWindowSize().second - text.getLocalBounds().height * 2));
+        window.draw(text);
+        window.display();
+    } catch (exception::FontException &e) {
+        std::cerr << e.what() << std::endl;
+        std::cout << "--- SPACE INVADERS ---\nPress space to start\n----------------------" << std::endl;
+    }
 }
 
 void game::GameView::_renderGameplay() {
-    window.clear(sf::Color::White); // clear the window
+    window.clear(sf::Color::Black); // clear the window
     // set background image
-    sf::Texture bg;
-    bg.loadFromFile("../resources/gamescreen.png");
-    sf::Sprite background(bg);
-    background.setScale(Transformation::instance().getWindowSize().first / bg.getSize().x,
-                        Transformation::instance().getWindowSize().second / bg.getSize().y);
-    window.draw(background);
-    sf::Texture playerTexture, invaderTexture, bulletTexture;
-    playerTexture.loadFromFile(entity::Player().getResourcePath());
-    invaderTexture.loadFromFile(entity::Invader({0, 0}).getResourcePath());
-    bulletTexture.loadFromFile(entity::Bullet({0, 0}, entity::MovingDirection::IDLE).getResourcePath());
-    // create and draw the player and player bullet sprite (if player is alive)
-    if (model->getPlayer()->alive()) {
-        // draw player
-        sf::Sprite playerSprite;
-        playerSprite.setTexture(playerTexture);
-        _adjustSprite(playerSprite, model->getPlayer());
-        window.draw(playerSprite);
-        // bullet
-        if (auto bullet = model->getPlayer()->getBullet().lock()) {
-            sf::Sprite bulletSprite;
-            bulletSprite.setTexture(bulletTexture);
-            _adjustSprite(bulletSprite, bullet);
-            window.draw(bulletSprite);
-        }
+    _drawBackground("../resources/backgrounds/gamescreen.png");
+    // draw player
+    _drawSprite(model->getPlayer());
+    // draw player bullet if it exists
+    if (auto bullet = model->getPlayer()->getBullet().lock()) {
+        _drawSprite(bullet);
     }
-    // create and draw the invader and bullet sprites
+    // draw invaders
     for (const entity::Invader::Ptr &inv: model->getInvaders()) {
-        if (inv->alive()) {
-            // draw invader
-            sf::Sprite invaderSprite;
-            invaderSprite.setTexture(invaderTexture);
-            _adjustSprite(invaderSprite, inv);
-            window.draw(invaderSprite);
-            // bullet
-            if (auto bullet = inv->getBullet().lock()) {
-                sf::Sprite bulletSprite;
-                bulletSprite.setTexture(bulletTexture);
-                _adjustSprite(bulletSprite, bullet);
-                window.draw(bulletSprite);
-            }
-        } else {
-            std::cout << "dead invader" << std::endl;
+        // draw invader
+        _drawSprite(inv);
+        // draw invader bullet if it exists
+        if (auto bullet = inv->getBullet().lock()) {
+            _drawSprite(bullet);
         }
     }
     window.display(); // display the window
 }
 
 void game::GameView::_renderGameOver() {
-
+    window.clear(sf::Color::Black);
+    // load font
+    try {
+        utils::ResourceLibrary::Font_Ptr font;
+        font = resources.getFont("../resources/fonts/aircruiserlight.ttf");
+        // make and draw title
+        sf::Text gameover("GAME\nOVER", *font,
+                          static_cast<unsigned int>(Transformation::instance().getWindowSize().first / 5));
+        gameover.setPosition((Transformation::instance().getWindowSize().first - gameover.getLocalBounds().width) / 2,
+                             (Transformation::instance().getWindowSize().second - gameover.getLocalBounds().height) /
+                             3);
+        window.draw(gameover);
+        // make and draw end message
+        std::string endmessage = "Better luck next time!";
+        if (model->getInvaders().empty()) {
+            endmessage = "You won!";
+        }
+        sf::Text text(endmessage, *font,
+                      static_cast<unsigned int>(Transformation::instance().getWindowSize().first / 20));
+        text.setPosition((Transformation::instance().getWindowSize().first - text.getLocalBounds().width) / 2,
+                         (Transformation::instance().getWindowSize().second - text.getLocalBounds().height * 2));
+        window.draw(text);
+        window.display();
+    } catch (exception::FontException &e) {
+        std::cerr << e.what() << std::endl;
+        std::cout << "--- GAME OVER ---" << std::endl;
+        if (model->getInvaders().empty()) {
+            std::cout << "You won!\n-----------------" << std::endl;
+        } else {
+            std::cout << "Better luck next time!\n-----------------" << std::endl;
+        }
+    }
 }
 
 // ----------------//

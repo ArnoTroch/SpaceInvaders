@@ -25,6 +25,6 @@ void entity::Player::removeBullet() {
 }
 
 std::string entity::Player::getResourcePath() {
-    return entity::getResourcesDir() + "player.png";
+    return entity::getResourcesDir() + "entities/player.png";
 }
 

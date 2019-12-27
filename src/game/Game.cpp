@@ -12,7 +12,7 @@ void game::Game::_update() {
 }
 
 void game::Game::_updateDt() {
-    dt = Stopwatch::instance().restart();
+    dt = utils::Stopwatch::instance().restart();
 }
 
 
@@ -28,8 +28,9 @@ game::Game::Game() {
 }
 
 void game::Game::run() {
-    Stopwatch::instance();
+    utils::Stopwatch::instance();
     Transformation::instance().setWindowSize(view->getWindow().getSize().x, view->getWindow().getSize().y);
+    sf::err().rdbuf(nullptr);
     // run the program as long as the window is open
     while (view->getWindow().isOpen()) {
         // check all the window's events that were triggered since the last iteration of the loop

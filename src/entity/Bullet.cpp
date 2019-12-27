@@ -12,5 +12,5 @@ entity::Bullet::Bullet(const entity::Position &position, MovingDirection directi
 }
 
 std::string entity::Bullet::getResourcePath() {
-    return entity::getResourcesDir() + "bullet.png";
+    return entity::getResourcesDir() + "entities/bullet.png";
 }
