@@ -19,8 +19,15 @@ namespace entity {
     private:
 
     public:
+        /**
+         * shared_ptr to Bullet is defined as entity::Bullet::Ptr, in order to
+         * simplify commonly used types.
+         */
         using Ptr = std::shared_ptr<Bullet>;
 
+        /**
+         * weak_ptr to a Bullet is defined as entity::Bullet::wPtr, in order to simplify commonly used types.
+         */
         using wPtr = std::weak_ptr<Bullet>;
 
         /**

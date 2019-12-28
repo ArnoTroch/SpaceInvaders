@@ -18,10 +18,9 @@ namespace game::utils {
      *
      */
     class Stopwatch {
-    public:
+    private:
         using Time = std::chrono::system_clock::time_point;
 
-    private:
         Stopwatch();
 
         Time last_recorded_time;

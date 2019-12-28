@@ -15,8 +15,8 @@ entity::MovingDirection entity::Creature::getMovingDirection() const {
     return direction;
 }
 
-void entity::Creature::setMovingDirection(entity::MovingDirection dir) {
-    Creature::direction = dir;
+void entity::Creature::setMovingDirection(entity::MovingDirection movingDirection) {
+    Creature::direction = movingDirection;
 }
 
 

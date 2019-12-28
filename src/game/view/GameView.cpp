@@ -20,10 +20,12 @@ void game::GameView::_adjustSprite(sf::Sprite &sprite, const entity::Entity::Ptr
 
 void game::GameView::_drawBackground(const std::string &path) {
     utils::ResourceLibrary::Texture_Ptr bg;
-    try {
+    try { // try loading and/or applying texture
         bg = resources.getTexture(path);
     } catch (exception::TextureException &e) {
         std::cerr << e.what() << std::endl;
+        // if texture can't be found, use a "dummy texture"
+        resources.setTexture(path, std::make_shared<sf::Texture>());
         return;
     }
     sf::Sprite background(*bg);
@@ -60,8 +62,7 @@ void game::GameView::_renderTitleScreen() {
     _drawBackground("../resources/backgrounds/titlescreen.png");
     // load font
     try {
-        utils::ResourceLibrary::Font_Ptr font;
-        font = resources.getFont("../resources/fonts/aircruiserlight.ttf");
+        utils::ResourceLibrary::Font_Ptr font(resources.getFont("../resources/fonts/aircruiserlight.ttf"));
         // make and draw title
         sf::Text title("Space Invaders", *font,
                        static_cast<unsigned int>(Transformation::instance().getWindowSize().first / 12));
@@ -77,7 +78,10 @@ void game::GameView::_renderTitleScreen() {
         window.display();
     } catch (exception::FontException &e) {
         std::cerr << e.what() << std::endl;
-        std::cout << "--- SPACE INVADERS ---\nPress space to start\n----------------------" << std::endl;
+        std::cout << "––––––––––––––––––––––––\n"
+                     "–––– SPACE INVADERS ––––\n"
+                     "– Press space to start –\n"
+                     "––––––––––––––––––––––––\n" << std::endl;
     }
 }
 
@@ -110,12 +114,11 @@ void game::GameView::_renderGameOver() {
         utils::ResourceLibrary::Font_Ptr font;
         font = resources.getFont("../resources/fonts/aircruiserlight.ttf");
         // make and draw title
-        sf::Text gameover("GAME\nOVER", *font,
-                          static_cast<unsigned int>(Transformation::instance().getWindowSize().first / 5));
-        gameover.setPosition((Transformation::instance().getWindowSize().first - gameover.getLocalBounds().width) / 2,
-                             (Transformation::instance().getWindowSize().second - gameover.getLocalBounds().height) /
-                             3);
-        window.draw(gameover);
+        sf::Text msg("GAME\nOVER", *font,
+                     static_cast<unsigned int>(Transformation::instance().getWindowSize().first / 5));
+        msg.setPosition((Transformation::instance().getWindowSize().first - msg.getLocalBounds().width) / 2,
+                        (Transformation::instance().getWindowSize().second - msg.getLocalBounds().height) / 3);
+        window.draw(msg);
         // make and draw end message
         std::string endmessage = "Better luck next time!";
         if (model->getInvaders().empty()) {
@@ -129,11 +132,14 @@ void game::GameView::_renderGameOver() {
         window.display();
     } catch (exception::FontException &e) {
         std::cerr << e.what() << std::endl;
-        std::cout << "--- GAME OVER ---" << std::endl;
+        std::cout << "––––––––––––––––––––––––\n"
+                     "–––––– GAME  OVER ––––––" << std::endl;
         if (model->getInvaders().empty()) {
-            std::cout << "You won!\n-----------------" << std::endl;
+            std::cout << "––––––– You won! –––––––\n"
+                         "––––––––––––––––––––––––\n" << std::endl;
         } else {
-            std::cout << "Better luck next time!\n-----------------" << std::endl;
+            std::cout << "–Better luck next time!–\n"
+                         "––––––––––––––––––––––––\n" << std::endl;
         }
     }
 }
@@ -157,9 +163,10 @@ void game::GameView::render() {
         case GameModel::State::GAME_OVER:
             _renderGameOver();
             break;
+        default:
+            break;
     }
 }
-
 
 void game::GameView::onNotify() {
     render();

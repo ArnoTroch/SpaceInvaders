@@ -17,6 +17,10 @@ namespace game {
      */
     class Observer {
     public:
+        /**
+         * shared_ptr to Observer is defined as game::Observer::Ptr, in order to
+         * simplify commonly used types.
+         */
         using Ptr = std::shared_ptr<Observer>;
 
         /**

@@ -41,6 +41,10 @@ namespace game {
         void _renderGameOver();
 
     public:
+        /**
+         * shared_ptr to GameView is defined as game::GameView::Ptr, in order to
+         * simplify commonly used types.
+         */
         using Ptr = std::shared_ptr<GameView>;
 
         /**

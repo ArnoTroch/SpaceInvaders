@@ -19,6 +19,10 @@ namespace entity {
         Bullet::Ptr bullet;
 
     public:
+        /**
+         * shared_ptr to Player is defined as entity::Player::Ptr, in order to
+         * simplify commonly used types.
+         */
         using Ptr = std::shared_ptr<Player>;
 
         /**

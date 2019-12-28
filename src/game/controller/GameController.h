@@ -37,6 +37,10 @@ namespace game {
         double shoot_time;
 
     public:
+        /**
+         * shared_ptr to GameController is defined as game::GameController::Ptr, in order to
+         * simplify commonly used types.
+         */
         using Ptr = std::__1::shared_ptr<GameController>;
 
         /**

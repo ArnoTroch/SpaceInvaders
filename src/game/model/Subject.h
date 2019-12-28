@@ -20,6 +20,10 @@ namespace game {
      */
     class Subject {
     protected:
+        /**
+         * shared_ptr to Subject is defined as game::Subject::Ptr, in order to
+         * simplify commonly used types.
+         */
         std::vector<Observer::Ptr> observers;
 
     public:

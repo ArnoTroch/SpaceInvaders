@@ -30,6 +30,7 @@ namespace game {
          * changes and what the GameView will display.
          */
         enum class State {
+            INITIALIZING,
             TITLE_SCREEN,
             GAME_RUNNING,
             GAME_OVER
@@ -55,6 +56,10 @@ namespace game {
         friend class GameController;
 
     public:
+        /**
+         * shared_ptr to GameModel is defined as game::GameModel::Ptr, in order to
+         * simplify commonly used types.
+         */
         using Ptr = std::shared_ptr<GameModel>;
 
         /**

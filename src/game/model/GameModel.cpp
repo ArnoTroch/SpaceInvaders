@@ -116,7 +116,7 @@ void game::GameModel::_checkInvaderCollision() {
 // ----------------//
 // public methods
 // ----------------//
-game::GameModel::GameModel() : state(State::TITLE_SCREEN) {}
+game::GameModel::GameModel() : state(State::INITIALIZING) {}
 
 const entity::Player::Ptr &game::GameModel::getPlayer() const {
     return player;
@@ -156,8 +156,11 @@ void game::GameModel::startGame() {
 
 void game::GameModel::update(double dt) {
     switch (state) {
-        case State::TITLE_SCREEN:
+        case State::INITIALIZING:
+            state = State::TITLE_SCREEN;
             notify();
+            break;
+        case State::TITLE_SCREEN:
             break;
         case State::GAME_RUNNING:
             _updatePlayer(dt);

@@ -23,8 +23,16 @@ namespace game::utils {
         std::map<std::string, std::shared_ptr<sf::Font>> fonts; // all fonts
 
     public:
+        /**
+         * shared_ptr to sf::Texture is defined as game::utils::ResourceLibrary::Texture_Ptr, in order to
+         * simplify commonly used types.
+         */
         using Texture_Ptr = std::shared_ptr<sf::Texture>;
 
+        /**
+         * shared_ptr to sf::Font is defined as game::utils::ResourceLibrary::Font_Ptr, in order to
+         * simplify commonly used types.
+         */
         using Font_Ptr = std::shared_ptr<sf::Font>;
 
         /**

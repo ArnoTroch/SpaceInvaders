@@ -93,7 +93,7 @@ void game::GameController::update(double dt) {
             _handlePlayer(); // handle user input for player
             _handleInvaders(dt); // handle AI for invaders
             break;
-        case GameModel::State::GAME_OVER:
+        default:
             break;
     }
     model->update(dt);

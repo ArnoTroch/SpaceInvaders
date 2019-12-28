@@ -12,14 +12,31 @@
  * This namespace contains everything that is linked to game entities.
  */
 namespace entity {
-    // maximum value of the x and y coordinates of an entity
-    const int MAX_X = 4, MAX_Y = 3;
+    /**
+     * maximum value of the x coordinate of an entity
+     */
+    const int MAX_X = 4;
 
+    /**
+     * maximum value of the y coordinate of an entity
+     */
+    const int MAX_Y = 3;
+    /**
+     * entity::Position is defined as a pair of doubles, where Position.first = x coordinate,
+     * and Position.second = y coordinate.
+     */
     using Position = std::pair<double, double>;
 
+    /**
+     * entity::Dimension is defined as a pair of doubles, with Dimension.first = width,
+     * and Dimension.second = height.
+     */
     using Dimension = std::pair<double, double>;
 
-    // relative path to resources directory
+    /**
+     * get relative path to directory containing resources
+     * @return relative path to resources directory
+     */
     std::string getResourcesDir();
 
     /**
@@ -34,6 +51,10 @@ namespace entity {
         int health;
 
     public:
+        /**
+         * shared_ptr to Entity is defined as entity::Entity::Ptr, in order to
+         * simplify commonly used types.
+         */
         using Ptr = std::shared_ptr<Entity>; // simplify commonly used type
 
         /**

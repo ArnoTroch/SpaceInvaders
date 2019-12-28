@@ -19,6 +19,10 @@ namespace entity {
         Bullet::Ptr bullet;
 
     public:
+        /**
+         * shared_ptr to Invader is defined as entity::Invader::Ptr, in order to
+         * simplify commonly used types.
+         */
         using Ptr = std::shared_ptr<Invader>;
 
         /**

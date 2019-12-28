@@ -30,12 +30,17 @@ namespace entity {
         MovingDirection direction;
 
     public:
+        /**
+         * shared_ptr to Creature is defined as entity::Creature::Ptr, in order to
+         * simplify commonly used types.
+         */
         using Ptr = std::shared_ptr<Creature>;
 
         /**
          * create a Creature
          * @param position position of new Creature
          * @param dimension dimension of new Creature
+         * @param health health of new Creature
          * @param velocity velocity of new Creature
          */
         Creature(const Position &position, const Dimension &dimension, int health, double velocity);
@@ -59,9 +64,9 @@ namespace entity {
 
         /**
          * set new moving direction
-         * @param direction new moving direction of Creature
+         * @param movingDirection new moving direction of Creature
          */
-        void setMovingDirection(MovingDirection direction);
+        void setMovingDirection(MovingDirection movingDirection);
 
         /**
          * check if move in current direction with current velocity is possible, i.e. is still
