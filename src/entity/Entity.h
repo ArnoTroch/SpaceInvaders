@@ -55,7 +55,7 @@ namespace entity {
          * shared_ptr to Entity is defined as entity::Entity::Ptr, in order to
          * simplify commonly used types.
          */
-        using Ptr = std::shared_ptr<Entity>; // simplify commonly used type
+        using Ptr = std::shared_ptr<Entity>;
 
         /**
          * create an Entity
@@ -87,6 +87,12 @@ namespace entity {
          * @return dimension of Entity
          */
         [[nodiscard]] const Dimension &getDimension() const;
+
+        /**
+         * get health
+         * @return health of Entity
+         */
+        [[nodiscard]] int getHealth() const;
 
         /**
          * reduce health by one

@@ -9,6 +9,7 @@
 #include "model/GameModel.h"
 #include "controller/GameController.h"
 #include "utils/Stopwatch.h"
+#include <SFML/System/Err.hpp>
 #include <iostream>
 
 /**

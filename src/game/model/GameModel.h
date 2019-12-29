@@ -9,6 +9,7 @@
 #include "../../entity/Player.h"
 #include "../../entity/Invader.h"
 #include "../../entity/Bullet.h"
+#include "../../entity/Shield.h"
 
 namespace game {
     /**
@@ -41,7 +42,7 @@ namespace game {
 
         std::vector<entity::Invader::Ptr> invaders; // enemies
 
-        // std::vector<entity::Shield::Ptr> shields; // shields
+        std::vector<entity::Shield::Ptr> shields; // shields
 
         State state; // game state
 
@@ -49,9 +50,9 @@ namespace game {
 
         void _updateInvaders(double dt);
 
-        void _checkPlayerCollision();
+        void _updateShields();
 
-        void _checkInvaderCollision();
+        static bool _entityCollision(const entity::Entity::Ptr &e1, const entity::Entity::Ptr &e2);
 
         friend class GameController;
 
@@ -83,6 +84,12 @@ namespace game {
          * @return invaders of GameModel
          */
         [[nodiscard]] const std::vector<entity::Invader::Ptr> &getInvaders() const;
+
+        /**
+         * get shields
+         * @return shields of GameModel
+         */
+        [[nodiscard]] const std::vector<entity::Shield::Ptr> &getShields() const;
 
         /**
          * get game state

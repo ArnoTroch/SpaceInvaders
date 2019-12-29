@@ -26,6 +26,10 @@ const entity::Dimension &entity::Entity::getDimension() const {
     return dimension;
 }
 
+int entity::Entity::getHealth() const {
+    return health;
+}
+
 void entity::Entity::hit() {
     if (health > 0) {
         --health;

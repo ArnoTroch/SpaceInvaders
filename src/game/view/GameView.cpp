@@ -86,7 +86,7 @@ void game::GameView::_renderTitleScreen() {
 }
 
 void game::GameView::_renderGameplay() {
-    window.clear(sf::Color::Black); // clear the window
+    window.clear(sf::Color::White); // clear the window
     // set background image
     _drawBackground("../resources/backgrounds/gamescreen.png");
     // draw player
@@ -103,6 +103,11 @@ void game::GameView::_renderGameplay() {
         if (auto bullet = inv->getBullet().lock()) {
             _drawSprite(bullet);
         }
+    }
+    // draw shields
+    for (const entity::Shield::Ptr &shld: model->getShields()) {
+        // draw shield
+        _drawSprite(shld);
     }
     window.display(); // display the window
 }

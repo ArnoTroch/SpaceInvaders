@@ -25,6 +25,5 @@ void Transformation::transform(sf::Sprite &sprite, const entity::Entity::Ptr &en
     double sizeY = entity->getDimension().second / 6;   // percentage of space used by entity (on y-axis)
     sprite.setScale(static_cast<float>((sizeX * windowX) / sprite.getTexture()->getSize().x),
                     static_cast<float>((sizeY * windowY) / sprite.getTexture()->getSize().y));
-    sprite.setPosition(static_cast<float>(((sprite.getPosition().x + 4) / 8) * windowX),
-                       static_cast<float>(((-sprite.getPosition().y + 3) / 6) * windowY));
+    sprite.setPosition(((sprite.getPosition().x + 4) / 8) * windowX, ((-sprite.getPosition().y + 3) / 6) * windowY);
 }

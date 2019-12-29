@@ -1,8 +1,6 @@
 # SpaceInvaders
 ## TODO:
-* add shields
 * add levels (+ Settings class)
 * README
-* shell script
-
+* error message "can't compare structures" in GameModel.cpp
 ### TEST:
