@@ -88,7 +88,7 @@ void game::GameView::_renderTitleScreen() {
 void game::GameView::_renderGameplay() {
     window.clear(sf::Color::White); // clear the window
     // set background image
-    _drawBackground("../resources/backgrounds/gamescreen.png");
+    _drawBackground("../resources/backgrounds/gamescreen" + std::to_string(model->getPlayer()->getHealth()) + ".png");
     // draw player
     _drawSprite(model->getPlayer());
     // draw player bullet if it exists
@@ -124,16 +124,14 @@ void game::GameView::_renderGameOver() {
         msg.setPosition((Transformation::instance().getWindowSize().first - msg.getLocalBounds().width) / 2,
                         (Transformation::instance().getWindowSize().second - msg.getLocalBounds().height) / 3);
         window.draw(msg);
-        // make and draw end message
-        std::string endmessage = "Better luck next time!";
+        // make and draw end message if necessary
         if (model->getInvaders().empty()) {
-            endmessage = "You won!";
+            sf::Text text("You won!", *font,
+                          static_cast<unsigned int>(Transformation::instance().getWindowSize().first / 20));
+            text.setPosition((Transformation::instance().getWindowSize().first - text.getLocalBounds().width) / 2,
+                             (Transformation::instance().getWindowSize().second - text.getLocalBounds().height * 2));
+            window.draw(text);
         }
-        sf::Text text(endmessage, *font,
-                      static_cast<unsigned int>(Transformation::instance().getWindowSize().first / 20));
-        text.setPosition((Transformation::instance().getWindowSize().first - text.getLocalBounds().width) / 2,
-                         (Transformation::instance().getWindowSize().second - text.getLocalBounds().height * 2));
-        window.draw(text);
         window.display();
     } catch (exception::FontException &e) {
         std::cerr << e.what() << std::endl;
@@ -146,6 +144,35 @@ void game::GameView::_renderGameOver() {
             std::cout << "–Better luck next time!–\n"
                          "––––––––––––––––––––––––\n" << std::endl;
         }
+    }
+}
+
+void game::GameView::_renderWaveOver() {
+    window.clear(sf::Color::Black);
+    // load font
+    try {
+        utils::ResourceLibrary::Font_Ptr font;
+        font = resources.getFont("../resources/fonts/aircruiserlight.ttf");
+        // make and draw title
+        sf::Text msg("WAVE " + std::to_string(model->getCurrentLevel() - 1) + "\nOVER", *font,
+                     static_cast<unsigned int>(Transformation::instance().getWindowSize().first / 5));
+        msg.setPosition((Transformation::instance().getWindowSize().first - msg.getLocalBounds().width) / 2,
+                        (Transformation::instance().getWindowSize().second - msg.getLocalBounds().height) / 3);
+        window.draw(msg);
+        // make and draw end message
+        sf::Text text("Press space for next wave", *font,
+                      static_cast<unsigned int>(Transformation::instance().getWindowSize().first / 20));
+        text.setPosition((Transformation::instance().getWindowSize().first - text.getLocalBounds().width) / 2,
+                         (Transformation::instance().getWindowSize().second - text.getLocalBounds().height * 2));
+        window.draw(text);
+        window.display();
+    } catch (exception::FontException &e) {
+        std::cerr << e.what() << std::endl;
+        std::cout << "–––––––––––––––––––––––––––––\n"
+                     "–––––––– WAVE " + std::to_string(model->getCurrentLevel() - 1) + " OVER ––––––––\n"
+                                                                                       "– Press space for next wave –\n"
+                                                                                       "–––––––––––––––––––––––––––––\n"
+                  << std::endl;
     }
 }
 
@@ -168,6 +195,9 @@ void game::GameView::render() {
         case GameModel::State::GAME_OVER:
             _renderGameOver();
             break;
+        case GameModel::State::WAVE_OVER:
+            _renderWaveOver();
+            break;
         default:
             break;
     }
@@ -180,4 +210,3 @@ void game::GameView::onNotify() {
 sf::RenderWindow &game::GameView::getWindow() {
     return window;
 }
-

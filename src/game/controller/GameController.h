@@ -6,6 +6,7 @@
 #define SPACEINVADERS_GAMECONTROLLER_H
 
 #include "../model/GameModel.h"
+#include "../utils/Settings.h"
 #include <random>
 
 namespace game {
@@ -21,20 +22,15 @@ namespace game {
 
         void _handleTitleScreen();
 
+        void _handleWaveOver();
+
         void _handlePlayer();
 
         void _handleInvaders(double dt);
 
-        // settings
-        double down_distance;
+        void _loadLevel();
 
-        entity::MovingDirection next_move_dir;
-
-        double min_shoot_time;
-
-        double max_shoot_time;
-
-        double shoot_time;
+        utils::Settings settings; // settings
 
     public:
         /**

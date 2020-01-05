@@ -95,6 +95,12 @@ namespace entity {
         [[nodiscard]] int getHealth() const;
 
         /**
+         * set new health
+         * @param health new health of Entity
+         */
+        void setHealth(int health);
+
+        /**
          * reduce health by one
          */
         void hit();

@@ -4,8 +4,6 @@
 
 #include "FontException.h"
 
-#include <utility>
-
 game::exception::FontException::FontException(std::string path) : path(std::move(path)) {}
 
 const char *game::exception::FontException::what() const noexcept {

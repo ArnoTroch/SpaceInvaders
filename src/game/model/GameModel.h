@@ -34,6 +34,7 @@ namespace game {
             INITIALIZING,
             TITLE_SCREEN,
             GAME_RUNNING,
+            WAVE_OVER,
             GAME_OVER
         };
 
@@ -43,6 +44,8 @@ namespace game {
         std::vector<entity::Invader::Ptr> invaders; // enemies
 
         std::vector<entity::Shield::Ptr> shields; // shields
+
+        int currentLevel; // current game level
 
         State state; // game state
 
@@ -92,6 +95,12 @@ namespace game {
         [[nodiscard]] const std::vector<entity::Shield::Ptr> &getShields() const;
 
         /**
+         * get current level
+         * @return current level of GameModel
+         */
+        [[nodiscard]] int getCurrentLevel() const;
+
+        /**
          * get game state
          * @return game state of GameModel
          */
@@ -116,9 +125,9 @@ namespace game {
         void setInvaderDirection(entity::MovingDirection movingDirection);
 
         /**
-         * start the actual game by creating all necessary entities
+         * create all necessary entities to start a new level
          */
-        void startGame();
+        void setup();
 
         /**
          * update the game model

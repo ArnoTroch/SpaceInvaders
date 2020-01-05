@@ -30,6 +30,10 @@ int entity::Entity::getHealth() const {
     return health;
 }
 
+void entity::Entity::setHealth(int h) {
+    Entity::health = h;
+}
+
 void entity::Entity::hit() {
     if (health > 0) {
         --health;

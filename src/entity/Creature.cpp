@@ -4,11 +4,21 @@
 
 #include "Creature.h"
 
-entity::Creature::Creature(const Position &position, const Dimension &dimension, int health, double velocity) :
-        Entity(position, dimension, health), velocity(velocity), direction(MovingDirection::IDLE) {}
+entity::Creature::Creature(const Position &position, const Dimension &dimension, int health, double velocity,
+                           double velocityMultiplier) : Entity(position, dimension, health), velocity(velocity),
+                                                        direction(MovingDirection::IDLE),
+                                                        velocityMultiplier(velocityMultiplier) {}
 
 double entity::Creature::getVelocity() const {
     return velocity;
+}
+
+double entity::Creature::getVelocityMultiplier() const {
+    return velocityMultiplier;
+}
+
+void entity::Creature::setVelocityMultiplier(double mult) {
+    Creature::velocityMultiplier = mult;
 }
 
 entity::MovingDirection entity::Creature::getMovingDirection() const {
@@ -24,16 +34,16 @@ bool entity::Creature::isPossibleMove(double dt) const {
     Position new_pos = getPosition();
     switch (direction) {
         case MovingDirection::LEFT:
-            new_pos.first -= (getVelocity() * dt);
+            new_pos.first -= (getVelocity() * getVelocityMultiplier() * dt);
             break;
         case MovingDirection::RIGHT:
-            new_pos.first += (getVelocity() * dt);
+            new_pos.first += (getVelocity() * getVelocityMultiplier() * dt);
             break;
         case MovingDirection::DOWN:
-            new_pos.second -= (getVelocity() * dt);
+            new_pos.second -= (getVelocity() * getVelocityMultiplier() * dt);
             break;
         case MovingDirection::UP:
-            new_pos.second += (getVelocity() * dt);
+            new_pos.second += (getVelocity() * getVelocityMultiplier() * dt);
             break;
         case MovingDirection::IDLE:
             break;
@@ -49,16 +59,16 @@ bool entity::Creature::move(double dt) {
     Position new_pos = getPosition();
     switch (direction) {
         case MovingDirection::LEFT:
-            new_pos.first -= (getVelocity() * dt);
+            new_pos.first -= (getVelocity() * getVelocityMultiplier() * dt);
             break;
         case MovingDirection::RIGHT:
-            new_pos.first += (getVelocity() * dt);
+            new_pos.first += (getVelocity() * getVelocityMultiplier() * dt);
             break;
         case MovingDirection::DOWN:
-            new_pos.second -= (getVelocity() * dt);
+            new_pos.second -= (getVelocity() * getVelocityMultiplier() * dt);
             break;
         case MovingDirection::UP:
-            new_pos.second += (getVelocity() * dt);
+            new_pos.second += (getVelocity() * getVelocityMultiplier() * dt);
             break;
         case MovingDirection::IDLE:
             break;

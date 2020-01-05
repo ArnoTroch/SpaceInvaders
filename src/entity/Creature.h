@@ -27,6 +27,8 @@ namespace entity {
     private:
         double velocity;
 
+        double velocityMultiplier;
+
         MovingDirection direction;
 
     public:
@@ -42,8 +44,10 @@ namespace entity {
          * @param dimension dimension of new Creature
          * @param health health of new Creature
          * @param velocity velocity of new Creature
+         * @param velocityMultiplier multiplier of new Creature
          */
-        Creature(const Position &position, const Dimension &dimension, int health, double velocity);
+        Creature(const Position &position, const Dimension &dimension, int health, double velocity,
+                 double velocityMultiplier = 1);
 
         /**
          * default destructor
@@ -55,6 +59,18 @@ namespace entity {
          * @return velocity of Creature
          */
         [[nodiscard]] double getVelocity() const;
+
+        /**
+         * get velocity multiplier
+         * @return velocity multiplier of Creature
+         */
+        [[nodiscard]] double getVelocityMultiplier() const;
+
+        /**
+         * set new velocity multiplier
+         * @param velocityMultiplier new velocity multiplier of Creature
+         */
+        void setVelocityMultiplier(double velocityMultiplier);
 
         /**
          * get moving direction

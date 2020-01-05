@@ -40,6 +40,8 @@ namespace game {
 
         void _renderGameOver();
 
+        void _renderWaveOver();
+
     public:
         /**
          * shared_ptr to GameView is defined as game::GameView::Ptr, in order to

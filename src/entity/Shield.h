@@ -6,6 +6,7 @@
 #define SPACEINVADERS_SHIELD_H
 
 #include "Entity.h"
+#include <cmath>
 
 namespace entity {
 
@@ -15,6 +16,8 @@ namespace entity {
      * This class inherits from the Entity class
      */
     class Shield : public Entity {
+        int maxHealth;
+
     public:
         /**
          * shared_ptr to Shield is defined as entity::Shield::Ptr, in order to
@@ -38,6 +41,12 @@ namespace entity {
          * @return relative path to resources for Shield
          */
         std::string getResourcePath() override;
+
+        /**
+         * set new max health (this resets the current health of the Shield)
+         * @param maxHealth new max health for Shield
+         */
+        void setMaxHealth(int maxHealth);
     };
 }
 

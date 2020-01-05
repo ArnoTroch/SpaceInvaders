@@ -71,9 +71,14 @@ void game::GameModel::_updateInvaders(double dt) {
             ++inv;
         }
     }
-    // if there are no invaders left, game is over
+    // if there are no invaders left, wave (or game) is over
     if (invaders.empty()) {
-        setState(State::GAME_OVER);
+        if (currentLevel < 20) {
+            ++currentLevel;
+            setState(State::WAVE_OVER);
+        } else {
+            setState(State::GAME_OVER);
+        }
     }
 }
 
@@ -134,7 +139,7 @@ bool game::GameModel::_entityCollision(const entity::Entity::Ptr &e1, const enti
 // ----------------//
 // public methods
 // ----------------//
-game::GameModel::GameModel() : state(State::INITIALIZING) {}
+game::GameModel::GameModel() : state(State::INITIALIZING), currentLevel(1) {}
 
 const entity::Player::Ptr &game::GameModel::getPlayer() const {
     return player;
@@ -146,6 +151,10 @@ const std::vector<entity::Invader::Ptr> &game::GameModel::getInvaders() const {
 
 const std::vector<entity::Shield::Ptr> &game::GameModel::getShields() const {
     return shields;
+}
+
+int game::GameModel::getCurrentLevel() const {
+    return currentLevel;
 }
 
 game::GameModel::State game::GameModel::getState() const {
@@ -166,14 +175,18 @@ void game::GameModel::setInvaderDirection(entity::MovingDirection movingDirectio
     }
 }
 
-void game::GameModel::startGame() {
+void game::GameModel::setup() {
+    // setup necessary entities for the game
+    setState(GameModel::State::GAME_RUNNING);
     player = std::make_shared<entity::Player>(); // make player
+    invaders.clear();
     for (int i = 0; i < 11; ++i) { // make invaders
-        invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-3.8 + (0.5 * i), 2.8)));
-        invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-3.8 + (0.5 * i), 2.4)));
-        invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-3.8 + (0.5 * i), 2.0)));
-        invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-3.8 + (0.5 * i), 1.6)));
+        invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-3.8 + (0.5 * i), 2.5)));
+        invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-3.8 + (0.5 * i), 2.1)));
+        invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-3.8 + (0.5 * i), 1.7)));
+        invaders.push_back(std::make_shared<entity::Invader>(entity::Position(-3.8 + (0.5 * i), 1.3)));
     }
+    shields.clear();
     for (int s = 0; s < 4; ++s) { // make shields
         shields.push_back(std::make_shared<entity::Shield>(entity::Position(-2.4 + (1.6 * s), -2)));
     }
@@ -185,15 +198,13 @@ void game::GameModel::update(double dt) {
             state = State::TITLE_SCREEN;
             notify();
             break;
-        case State::TITLE_SCREEN:
-            break;
         case State::GAME_RUNNING:
             _updatePlayer(dt);
             _updateInvaders(dt);
             _updateShields();
             notify();
             break;
-        case State::GAME_OVER:
+        default:
             break;
     }
 }
