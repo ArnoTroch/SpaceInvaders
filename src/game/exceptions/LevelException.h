@@ -9,10 +9,18 @@
 #include <string>
 
 namespace game::exception {
+
+    /**
+     * Exception class that is used when a level file could not be loaded
+     */
     class LevelException : public std::exception {
         std::string path;
 
     public:
+        /**
+         * create a new LevelException
+         * @param path path to level file that couldn't be loaded
+         */
         explicit LevelException(std::string path);
 
         /**

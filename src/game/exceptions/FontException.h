@@ -17,7 +17,7 @@ namespace game::exception {
 
     public:
         /**
-         * create a FontException object
+         * create a new FontException
          * @param path path to file with font that couldn't be loaded
          */
         explicit FontException(std::string path);

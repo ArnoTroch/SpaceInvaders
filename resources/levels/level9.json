@@ -1,0 +1,9 @@
+{
+  "MaxShooters": 3,
+  "ShieldHealth": 4,
+  "ShootingInterval": {
+    "max": 2.1,
+    "min": 0.55
+  },
+  "VelocityMultiplier": 1.9
+}
