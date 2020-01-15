@@ -9,9 +9,9 @@ without dying. The ship has 3 lives, so it can get hit twice before eventually d
 shields. When all invaders are killed, the current level is won and the player moves on to the next level. The goal is 
 to try and finish all levels.
 
-For more details about the actual implementation of the game, have a look at the [report](//TODO insert link).
+For more details about the actual implementation of the game, have a look at the [report]().
 
-##Controls
+## Controls
 - **Start game/next level:**
 space bar
 - **Move left:** 
@@ -28,12 +28,12 @@ higher). To run the script, run the following commands in the root directory of 
     chmod +x run.sh
     ./run.sh
 
-##Documentation
+## Documentation
 There is a `Doxyfile` which can generate the documentation for this project by executing the following command in the 
 root directory of this project:
 
     doxygen Doxyfile
     
 This will generate a directory called 'html', which includes an index.html file. Open this file in a browser to get to 
-the main page of the documentation, or click [here](html/index.html).
+the main page of the documentation.
 
