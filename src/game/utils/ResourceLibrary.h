@@ -7,6 +7,7 @@
 
 #include <map>
 #include <SFML/Graphics.hpp>
+#include <memory>
 #include "../exceptions/TextureException.h"
 #include "../exceptions/FontException.h"
 

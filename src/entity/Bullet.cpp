@@ -8,7 +8,7 @@ entity::Bullet::Bullet(const entity::Position &position, MovingDirection directi
         : Creature(position, {0.05, 0.1}, 1, 3) {
     if (direction == MovingDirection::UP || direction == MovingDirection::DOWN) {
         setMovingDirection(direction);
-    } // TODO exception handling
+    }
 }
 
 std::string entity::Bullet::getResourcePath() {
