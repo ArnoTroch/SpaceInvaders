@@ -35,3 +35,11 @@ root directory of this project:
     
 This will generate a directory called `html`, which includes an `index.html` file. Open this file in a browser to get to 
 the main page of the documentation.
+
+## Inspect code problems
+When running inspect code, it could happen that it gives a warning about one or more files, with the following message:
+ 
+`file is too complex to perform data-flow analysis`. 
+
+I haven't found the reason for this, especially because it seems that it displays the warning "randomly", because it 
+doesn't always occur.
