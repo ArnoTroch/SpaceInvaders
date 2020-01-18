@@ -48,8 +48,8 @@ bool entity::Creature::isPossibleMove(double dt) const {
         case MovingDirection::IDLE:
             break;
     }
-    return abs(new_pos.first) + (getDimension().first / 2) <= MAX_X &&
-           abs(new_pos.second) + (getDimension().second / 2) <= MAX_Y;
+    return fabs(new_pos.first) + (getDimension().first / 2) <= MAX_X &&
+           fabs(new_pos.second) + (getDimension().second / 2) <= MAX_Y;
 }
 
 bool entity::Creature::move(double dt) {
